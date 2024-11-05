@@ -237,6 +237,7 @@ Diagnostic Code,Rated Issue Name,Max Rating,Body System,Category,Subcategory,CFR
 6081,"Scotoma, unilateral",100,The Organs of Special Sense,Eye,,38 CFR 4.79
 6090,Diplopia (double vision),100,The Organs of Special Sense,Eye,,38 CFR 4.79
 6091,Symblepharon,100,The Organs of Special Sense,Eye,,38 CFR 4.79
+6100,Hearing Loss,100,The Organs of Special Sense,Ear,,38 CFR 4.85
 6200,"Chronic suppurative otitis media, mastoiditis, or cholesteatoma (or any combination)",10,The Organs of Special Sense,Ear,,38 CFR 4.87
 6201,Chronic nonsuppurative otitis media with effusion (serous otitis media),100,The Organs of Special Sense,Ear,,38 CFR 4.87
 6202,Otosclerosis,100,The Organs of Special Sense,Ear,,38 CFR 4.87
