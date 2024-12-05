@@ -146,3 +146,7 @@ Try to send a request on the post endpoint with the following request body:
   ]
 }
 ```
+
+## Repository History
+
+NOTE: this repository was split from [abd-vro](https://github.com/department-of-veterans-affairs/abd-vro/tree/develop/domain-ee/ee-max-cfi-app).
