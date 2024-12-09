@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-MAX_RATING = '/max-ratings'
+MAX_RATING = '/'
 
 TINNITUS = {'diagnostic_code': 6260, 'max_rating': 10}
 TUBERCULOSIS = {'diagnostic_code': 7710, 'max_rating': 100}

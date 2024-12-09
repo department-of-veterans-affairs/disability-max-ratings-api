@@ -17,7 +17,7 @@ and updates the database with the new data. The script also logs the changes mad
     * CFR Reference
       Preparation includes removing any extra punctuation in the `Rated Issue Name` column.
 
-2. Run the script with the following command from the directory `domain-ee/ee-max-cfi-app/scripts`
+2. Run the script with the following command from the directory `max-ratings-api/scripts`
     ```
     python dc_lookup_table_updater.py <new_data_csv_file>.csv
     ```
