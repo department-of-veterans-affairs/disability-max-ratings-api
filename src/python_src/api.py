@@ -14,7 +14,10 @@ app = FastAPI(
     description='Maps a list of disabilities to their max rating.',
     contact={},
     version='v0.1',
-    license={'name': 'CCO 1.0', 'url': 'https://github.com/department-of-veterans-affairs/disability-max-ratings-api/blob/main/LICENSE.md'},
+    license={
+        'name': 'CCO 1.0',
+        'url': 'https://github.com/department-of-veterans-affairs/disability-max-ratings-api/blob/main/LICENSE.md',
+    },
     servers=[
         {
             'url': '/',
