@@ -1,6 +1,8 @@
-# Max Claim for Increase (CFI) API
+# Disability Max Ratings API
 
-`/max-ratings` maps a list of disabilities to their max ratings, if any.
+> **Note:** This API was formerly known as Max CFI (Claim for Increase) API. All functionality remains the same.
+
+`/disability-max-ratings` maps a list of disabilities to their max ratings, if any.
 
 ## Getting started
 
@@ -30,14 +32,14 @@ which python3
 Install dependencies and run webserver
 
 ```
-cd domain-ee/max-cfi-app/src
-pip3 install -r requirements.txt
+cd disability-max-ratings-api/src
+pip3 install -r dev-requirements.txt
 uvicorn api:app --port 8130 --reload
 ```
 
 ## Testing it all together
 
-Run the Python webserver (uvicorn command above). Now you should be able to make a post request to the `cfi/max-ratings`
+Run the Python webserver (uvicorn command above). Now you should be able to make a post request to the `/disability-max-ratings/`
 endpoint with a request body of the format:
 
 ```
@@ -90,10 +92,10 @@ Make sure you're in your `.virtualenv`:
 source ~/.virtualenvs/domain-ee/bin/activate
 ```
 
-Navigate to `max-cfi-app/`:
+Navigate to `disability-max-ratings-api/`:
 
 ```
-cd domain-ee/max-cfi-app
+cd disability-max-ratings-api
 ```
 
 Run the tests:
@@ -107,6 +109,7 @@ pytest
 ### Install dev dependencies
 
 ```
+# TODO: update this to use the new disability-max-ratings-api
 source ~/.virtualenvs/domain-ee/bin/activate
 pip install -r dev-requirements.txt
 # MAKE SURE you are in adb-vro/domain-ee to get the right pre-commit-config.yaml installed
@@ -116,8 +119,9 @@ pre-commit install
 ## Building docs
 
 ```
+# TODO: update this to use the new disability-max-ratings-api
 source ~/.virtualenvs/domain-ee/bin/activate
-cd ./domain-ee/max-cfi-app
+cd ./disability-max-ratings-api
 python3 src/python_src/pull_api_documentation.py
 ```
 
@@ -125,10 +129,13 @@ python3 src/python_src/pull_api_documentation.py
 
 ### Build the image
 
+ TODO: update this to use the new disability-max-ratings-api Docker Compose file - <https://github.com/department-of-veterans-affairs/abd-vro/issues/3833>
+
 Follow steps for
 [Platform Base + API-Gateway](https://github.com/department-of-veterans-affairs/abd-vro/wiki/Docker-Compose#platform-base)
-then run the max-cfi-api with the following command from the `abd_vro directory`:
+then run the disability-max-ratings-api with the following command from the `disability-max-ratings-api directory`:
 
+TODO migrate away from gradlew to use a python alternative <https://github.com/department-of-veterans-affairs/abd-vro/issues/3832>
 ```
 COMPOSE_PROFILES="all" ./gradlew :domain-ee:dockerComposeUp
 ```

@@ -43,11 +43,18 @@ def import_file(filename: str) -> dict[int, tuple[Any, Any, Any, Any, Any, Any]]
 
             try:
                 diagnostic_code = int(diagnostic_code_str)
-            except ValueError:
-                raise ValueError(f'Invalid diagnostic code at index {index}: \n{csv_line}')
+            except ValueError as err:
+                raise ValueError(f'Invalid diagnostic code at index {index}: \n{csv_line}') from err
 
             rated_issue_name = remove_diagnostic_code_prefix(clean_string(rated_issue_name), diagnostic_code_str)
-            diagnostic_code_to_data[diagnostic_code] = (rated_issue_name, max_rating_str, body_system, category, subcategory, cfr_ref)
+            diagnostic_code_to_data[diagnostic_code] = (
+                rated_issue_name,
+                max_rating_str,
+                body_system,
+                category,
+                subcategory,
+                cfr_ref,
+            )
 
     return diagnostic_code_to_data
 
@@ -66,7 +73,9 @@ def remove_diagnostic_code_prefix(rated_issue_name: str, diagnostic_code_str: st
 def export_data(data: dict[int, tuple[Any, int, Any, Any, Any, Any]]):
     with open(DATA_FILE, 'w') as file:
         csv_writer = csv.writer(file)
-        csv_writer.writerow(['Diagnostic Code', 'Rated Issue Name', 'Max Rating', 'Body System', 'Category', 'Subcategory', 'CFR Reference'])
+        csv_writer.writerow(
+            ['Diagnostic Code', 'Rated Issue Name', 'Max Rating', 'Body System', 'Category', 'Subcategory', 'CFR Reference']
+        )
         for diagnostic_code, data_tuple in data.items():
             csv_writer.writerow([diagnostic_code, *data_tuple])
 

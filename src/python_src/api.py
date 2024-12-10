@@ -10,15 +10,18 @@ from util.lookup_table import MAX_RATINGS_BY_CODE, get_max_rating
 from util.sanitizer import sanitize
 
 app = FastAPI(
-    title='Max Ratings for CFI',
+    title='Disability Max Ratings API',
     description='Maps a list of disabilities to their max rating.',
     contact={},
     version='v0.1',
-    license={'name': 'CCO 1.0', 'url': 'https://github.com/department-of-veterans-affairs/abd-vro/blob/master/LICENSE.md'},
+    license={
+        'name': 'CCO 1.0',
+        'url': 'https://github.com/department-of-veterans-affairs/disability-max-ratings-api/blob/main/LICENSE.md',
+    },
     servers=[
         {
-            'url': '/cfi',
-            'description': 'Max Ratings for CFI',
+            'url': '/',
+            'description': 'Disability Max Ratings API',
         },
     ],
 )
@@ -32,7 +35,11 @@ def get_health_status() -> dict[str, str]:
     return {'status': 'ok'}
 
 
-@app.post('/max-ratings')
+# TODO: Update API gateway configuration when migrating to VA.gov cloud.
+# The path '/disability-max-ratings' is designed to be more descriptive and domain-specific,
+# replacing the legacy '/cfi/max-ratings' path that was specific to LHDI cloud.
+# This will require new API gateway configuration in the VA.gov cloud environment. For more details, see: https://github.com/department-of-veterans-affairs/abd-vro/issues/3850
+@app.post('/disability-max-ratings')
 def get_max_ratings(
     claim_for_increase: MaxRatingsForClaimForIncreaseRequest,
 ) -> MaxRatingsForClaimForIncreaseResponse:
