@@ -10,7 +10,7 @@ from util.lookup_table import MAX_RATINGS_BY_CODE, get_max_rating
 from util.sanitizer import sanitize
 
 app = FastAPI(
-    title='Max Ratings API',
+    title='Disability Max Ratings API',
     description='Maps a list of disabilities to their max rating.',
     contact={},
     version='v0.1',
@@ -21,7 +21,7 @@ app = FastAPI(
     servers=[
         {
             'url': '/',
-            'description': 'Max Ratings API',
+            'description': 'Disability Max Ratings API',
         },
     ],
 )

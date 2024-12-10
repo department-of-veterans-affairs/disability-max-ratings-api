@@ -1,8 +1,8 @@
-# Max Ratings API
+# Disability Max Ratings API
 
 > **Note:** This API was formerly known as Max CFI (Claim for Increase) API. All functionality remains the same.
 
-`/max-ratings` maps a list of disabilities to their max ratings, if any.
+`/disability-max-ratings` maps a list of disabilities to their max ratings, if any.
 
 ## Getting started
 
@@ -32,7 +32,7 @@ which python3
 Install dependencies and run webserver
 
 ```
-cd max-ratings-api/src
+cd disability-max-ratings-api/src
 pip3 install -r requirements.txt
 uvicorn api:app --port 8130 --reload
 ```
@@ -92,10 +92,10 @@ Make sure you're in your `.virtualenv`:
 source ~/.virtualenvs/domain-ee/bin/activate
 ```
 
-Navigate to `max-ratings-api/`:
+Navigate to `disability-max-ratings-api/`:
 
 ```
-cd max-ratings-api
+cd disability-max-ratings-api
 ```
 
 Run the tests:
@@ -109,7 +109,7 @@ pytest
 ### Install dev dependencies
 
 ```
-# TODO: update this to use the new max-ratings-api
+# TODO: update this to use the new disability-max-ratings-api
 source ~/.virtualenvs/domain-ee/bin/activate
 pip install -r dev-requirements.txt
 # MAKE SURE you are in adb-vro/domain-ee to get the right pre-commit-config.yaml installed
@@ -119,9 +119,9 @@ pre-commit install
 ## Building docs
 
 ```
-# TODO: update this to use the new max-ratings-api
+# TODO: update this to use the new disability-max-ratings-api
 source ~/.virtualenvs/domain-ee/bin/activate
-cd ./max-ratings-api
+cd ./disability-max-ratings-api
 python3 src/python_src/pull_api_documentation.py
 ```
 
@@ -129,11 +129,11 @@ python3 src/python_src/pull_api_documentation.py
 
 ### Build the image
 
- TODO: update this to use the new max-ratings-api Docker Compose file - <https://github.com/department-of-veterans-affairs/abd-vro/issues/3833>
+ TODO: update this to use the new disability-max-ratings-api Docker Compose file - <https://github.com/department-of-veterans-affairs/abd-vro/issues/3833>
 
 Follow steps for
 [Platform Base + API-Gateway](https://github.com/department-of-veterans-affairs/abd-vro/wiki/Docker-Compose#platform-base)
-then run the max-ratings-api with the following command from the `max-ratings-api directory`:
+then run the disability-max-ratings-api with the following command from the `disability-max-ratings-api directory`:
 
 TODO migrate away from gradlew to use a python alternative <https://github.com/department-of-veterans-affairs/abd-vro/issues/3832>
 ```

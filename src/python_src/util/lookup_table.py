@@ -8,7 +8,7 @@ TABLE_NAME = 'Diagnostic Code Lookup Table.csv'
 
 
 def get_max_ratings_by_code() -> dict[int, int]:
-    logger.info(f'Loading Max Ratings from Diagnostic Code Lookup Table v{TABLE_VERSION}')
+    logger.info(f'Loading Disability Max Ratings from Diagnostic Code Lookup Table v{TABLE_VERSION}')
 
     filename = os.path.join(os.path.dirname(__file__), 'data', TABLE_NAME)
     diagnostic_code_to_max_rating: dict[int, int] = {}
@@ -34,7 +34,7 @@ def get_max_ratings_by_code() -> dict[int, int]:
 
             diagnostic_code_to_max_rating[diagnostic_code] = max_rating
 
-    logger.info(f'Loaded Max Ratings from Diagnostic Code Lookup Table v{TABLE_VERSION}')
+    logger.info(f'Loaded Disability Max Ratings from Diagnostic Code Lookup Table v{TABLE_VERSION}')
     return diagnostic_code_to_max_rating
 
 
