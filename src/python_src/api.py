@@ -1,6 +1,5 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import RedirectResponse
 from pydantic_models import (
     MaxRatingsForClaimForIncreaseRequest,
     MaxRatingsForClaimForIncreaseResponse,
@@ -36,14 +35,10 @@ def get_health_status() -> dict[str, str]:
     return {'status': 'ok'}
 
 
-@app.post('/max-ratings')
-def redirect_max_ratings() -> RedirectResponse:
-    """
-    Redirects the old /max-ratings endpoint to the new /disability-max-ratings endpoint.
-    """
-    return RedirectResponse(url='/disability-max-ratings')
-
-
+# TODO: Update API gateway configuration when migrating to VA.gov cloud.
+# The path '/disability-max-ratings' is designed to be more descriptive and domain-specific,
+# replacing the legacy '/cfi/max-ratings' path that was specific to LHDI cloud.
+# This will require new API gateway configuration in the VA.gov cloud environment. For more details, see: https://github.com/department-of-veterans-affairs/abd-vro/issues/3850
 @app.post('/disability-max-ratings')
 def get_max_ratings(
     claim_for_increase: MaxRatingsForClaimForIncreaseRequest,
