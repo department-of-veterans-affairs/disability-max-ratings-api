@@ -1,10 +1,21 @@
 from fastapi.testclient import TestClient
 
-MAX_RATING = '/max-ratings'
+MAX_RATING = '/disability-max-ratings'
+LEGACY_ENDPOINT = '/max-ratings'
 
 TINNITUS = {'diagnostic_code': 6260, 'max_rating': 10}
 TUBERCULOSIS = {'diagnostic_code': 7710, 'max_rating': 100}
 NOT_RATED = {'diagnostic_code': 9999}
+
+
+def test_redirect_from_legacy_endpoint(client: TestClient) -> None:
+    """Test that the legacy endpoint redirects to the new endpoint"""
+    json_post_dict = {'diagnostic_codes': [TINNITUS['diagnostic_code']]}
+
+    response = client.post(LEGACY_ENDPOINT, json=json_post_dict, allow_redirects=False)
+
+    assert response.status_code == 307  # Temporary Redirect
+    assert response.headers['location'] == MAX_RATING
 
 
 def test_max_rating_with_no_dc(client: TestClient):

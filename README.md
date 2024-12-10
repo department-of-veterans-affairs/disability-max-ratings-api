@@ -39,7 +39,7 @@ uvicorn api:app --port 8130 --reload
 
 ## Testing it all together
 
-Run the Python webserver (uvicorn command above). Now you should be able to make a post request to the `/max-ratings/`
+Run the Python webserver (uvicorn command above). Now you should be able to make a post request to the `/disability-max-ratings/`
 endpoint with a request body of the format:
 
 ```

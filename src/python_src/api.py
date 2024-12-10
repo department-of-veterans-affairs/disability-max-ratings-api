@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import RedirectResponse
 from pydantic_models import (
     MaxRatingsForClaimForIncreaseRequest,
     MaxRatingsForClaimForIncreaseResponse,
@@ -36,6 +37,14 @@ def get_health_status() -> dict[str, str]:
 
 
 @app.post('/max-ratings')
+def redirect_max_ratings() -> RedirectResponse:
+    """
+    Redirects the old /max-ratings endpoint to the new /disability-max-ratings endpoint.
+    """
+    return RedirectResponse(url='/disability-max-ratings')
+
+
+@app.post('/disability-max-ratings')
 def get_max_ratings(
     claim_for_increase: MaxRatingsForClaimForIncreaseRequest,
 ) -> MaxRatingsForClaimForIncreaseResponse:
