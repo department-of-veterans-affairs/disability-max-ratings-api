@@ -1,23 +1,10 @@
 from fastapi.testclient import TestClient
 
-MAX_RATING = '/'
-LEGACY_ENDPOINT = '/max-ratings'
+MAX_RATING = '/max-ratings'
 
 TINNITUS = {'diagnostic_code': 6260, 'max_rating': 10}
 TUBERCULOSIS = {'diagnostic_code': 7710, 'max_rating': 100}
 NOT_RATED = {'diagnostic_code': 9999}
-
-
-def test_root_endpoint_matches_legacy(client: TestClient) -> None:
-    """Test that both endpoints return the same response for the same input"""
-    json_post_dict = {'diagnostic_codes': [TINNITUS['diagnostic_code']]}
-
-    legacy_response = client.post(LEGACY_ENDPOINT, json=json_post_dict)
-    root_response = client.post(MAX_RATING, json=json_post_dict)
-
-    assert legacy_response.status_code == 200
-    assert root_response.status_code == 200
-    assert legacy_response.json() == root_response.json()
 
 
 def test_max_rating_with_no_dc(client: TestClient):

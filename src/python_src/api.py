@@ -36,17 +36,6 @@ def get_health_status() -> dict[str, str]:
 
 
 @app.post('/max-ratings')
-def legacy_max_ratings(
-    claim_for_increase: MaxRatingsForClaimForIncreaseRequest,
-) -> MaxRatingsForClaimForIncreaseResponse:
-    """
-    Legacy endpoint for backwards compatibility.
-    """
-    logger.info('Received request to legacy /max-ratings endpoint')
-    return get_max_ratings(claim_for_increase)
-
-
-@app.post('/')
 def get_max_ratings(
     claim_for_increase: MaxRatingsForClaimForIncreaseRequest,
 ) -> MaxRatingsForClaimForIncreaseResponse:
