@@ -16,6 +16,10 @@ omit = [
 [tool.ruff]
 line-length = 127
 target-version = "py310"
+exclude = [".git", "__pycache__", "build", "dist"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
 
 [tool.ruff.lint]
 select = [
