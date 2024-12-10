@@ -33,7 +33,7 @@ Install dependencies and run webserver
 
 ```
 cd disability-max-ratings-api/src
-pip3 install -r requirements.txt
+pip3 install -r dev-requirements.txt
 uvicorn api:app --port 8130 --reload
 ```
 
