@@ -23,20 +23,20 @@ jobs:
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
+        with:
+          poetry-version: 'latest'
 
-      - name: Load cached venv
-        id: cached-poetry-dependencies
+      - name: Load or Install Dependencies
         uses: actions/cache@v4
+        id: poetry-cache
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+        continue-on-error: true # Ensures workflow runs even if cache retrieval fails
 
-      - name: Install dependencies if not in cached venv
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
-
-      - name: Install project
-        run: poetry install --no-interaction
+      - name: Install dependencies if cache missed
+        if: steps.poetry-cache.outputs.cache-hit != 'true'
+        run: poetry install --no-root
 
       - name: "Run ruff format"
         run: poetry run ruff format
