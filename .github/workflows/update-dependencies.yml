@@ -1,0 +1,21 @@
+name: Update Dependencies
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  update-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update pre-commit hooks
+        run: |
+          pip install pre-commit
+          pre-commit autoupdate
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: 'chore: update pre-commit hooks'
+          commit-message: 'chore: update pre-commit hooks'
+          branch: update-pre-commit-hooks
