@@ -56,7 +56,7 @@ package-mode = false
 python = "3.10.12"
 fastapi = "0.115.*"
 httpx = "0.24.*"
-uvicorn = {version = "0.20.*", extras = ["standard"]}
+uvicorn = {version = "0.32.*", extras = ["standard"]}
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.13.*"
