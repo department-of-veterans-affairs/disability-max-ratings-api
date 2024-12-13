@@ -40,8 +40,7 @@ plugins = ['pydantic.mypy']
 strict = true
 ignore_missing_imports = true
 exclude = [
-    "scripts",
-    "tests",
+    "scripts"
 ]
 
 [tool.poetry]
