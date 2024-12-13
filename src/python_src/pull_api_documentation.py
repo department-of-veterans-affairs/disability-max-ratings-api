@@ -1,4 +1,5 @@
 import json
+import os
 
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
@@ -15,5 +16,9 @@ def export_openapi(app: FastAPI, filename: str) -> None:
 if __name__ == '__main__':
     from api import app
 
-    export_openapi(app, 'fastapi.json')
-    print('Done!')
+    if not os.path.exists('build'):
+        os.mkdir('build')
+
+    output_file = os.path.abspath('build/fastapi.json')
+    export_openapi(app, output_file)
+    print(f'OpenAPI specification exported to: {output_file}')
