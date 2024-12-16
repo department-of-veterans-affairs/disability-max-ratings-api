@@ -6,14 +6,14 @@
 
 ## Getting started
 
-### Install Python3.10
+### Install Python3.12.3
 
 If you're on a Mac, you can use pyenv to handle multiple python versions
 
 ```bash
 brew install pyenv
-pyenv install python3.10
-pyenv global python3.10 # or don't do this if you want a different version available globally for your system
+pyenv install 3.12.3
+pyenv global 3.12.3 # or don't do this if you want a different version available globally for your system
 ```
 
 ### Install Poetry
