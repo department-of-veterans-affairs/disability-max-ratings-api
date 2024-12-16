@@ -55,7 +55,7 @@ package-mode = false
 [tool.poetry.dependencies]
 python = "3.10.12"
 fastapi = "0.115.*"
-httpx = "0.24.*"
+httpx = "0.28.*"
 uvicorn = {version = "0.32.*", extras = ["standard"]}
 
 [tool.poetry.group.dev.dependencies]
