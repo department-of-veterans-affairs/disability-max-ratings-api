@@ -1,0 +1,29 @@
+name: Update Dependencies
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  update-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # pin python version until python has been upgraded to latest in #3848
+      - name: "Install Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.12"
+      #
+      - name: Update pre-commit hooks
+        run: |
+          pip install pre-commit
+          pre-commit autoupdate
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: 'chore: update pre-commit hooks'
+          commit-message: 'chore: update pre-commit hooks'
+          branch: update-pre-commit-hooks
