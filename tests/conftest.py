@@ -6,6 +6,6 @@ from fastapi.testclient import TestClient
 from src.python_src.api import app
 
 
-@pytest.fixture  # type: ignore
+@pytest.fixture
 def client() -> TestClient:
     return TestClient(app)
