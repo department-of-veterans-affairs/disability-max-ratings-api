@@ -1,6 +1,7 @@
 # Disability Max Ratings API
 [![Tests](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml/badge.svg)](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
+![Python Version from PEP 621 TOML](https://img.shields.io/badge/Python-3.12-blue)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 [![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
 [![Linting: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
