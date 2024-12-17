@@ -1,4 +1,4 @@
-name: Update Dependencies
+name: Pre-Commit Updates
 on:
   schedule:
     - cron: '0 0 * * *'  # Daily at midnight
@@ -7,6 +7,9 @@ on:
 jobs:
   update-deps:
     runs-on: ubuntu-latest
+    env:
+      # Space separated list of repos to exclude from the update
+      EXCLUDED_REPOS: "https://github.com/python-poetry/poetry"
 
     permissions:
       contents: write
@@ -28,14 +31,19 @@ jobs:
       - name: Extract Repos Excluding Poetry
         id: extract_repos
         run: |
-          # Extract repos, excluding the one for Poetry
-          EXCLUDED_REPO="https://github.com/python-poetry/poetry"
+          # Convert EXCLUDED_REPOS to a grep pattern
+          EXCLUDE_PATTERN=$(echo "$EXCLUDED_REPOS" | tr ' ' '|')
 
+          # Extract repos and exclude those defined in EXCLUDED_REPOS
           REPOS=$(yq '.repos[].repo' .pre-commit-config.yaml | \
-            grep -v "$EXCLUDED_REPO" | \
-            xargs -n1 echo --repo)
+            grep -Ev "$EXCLUDE_PATTERN" | \
+            xargs -n1 echo --repo | tr '\n' ' ')
 
-          # Save consolidated repo flags to an output variable
+          # Properly escape the output for GitHub Actions
+          REPOS="${REPOS//'%'/'%25'}"
+          REPOS="${REPOS//$'\n'/'%0A'}"
+          REPOS="${REPOS//$'\r'/'%0D'}"
+
           echo "repos=${REPOS}" >> "$GITHUB_OUTPUT"
 
       - name: Run Pre-Commit Autoupdate
