@@ -39,7 +39,7 @@ jobs:
             grep -Ev "$EXCLUDE_PATTERN" | \
             xargs -n1 echo --repo | tr '\n' ' ')
 
-          # Properly escape the output for GitHub Actions
+          # Properly escape the output for GitHub Actions - percent (%), newline (\n), and carriage return (\r)
           REPOS="${REPOS//'%'/'%25'}"
           REPOS="${REPOS//$'\n'/'%0A'}"
           REPOS="${REPOS//$'\r'/'%0D'}"
