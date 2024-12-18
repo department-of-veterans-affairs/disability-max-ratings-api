@@ -48,4 +48,6 @@ jobs:
           file: coverage.xml
           flag-name: Unit Tests
           fail-on-error: false
-          status-flags: true
+          base-path: ${{ github.workspace }}
+          compare-ref: ${{ github.event.pull_request.base.ref || github.base_ref || 'main' }}
+          github-write-mode: true
