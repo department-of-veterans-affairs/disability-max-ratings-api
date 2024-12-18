@@ -1,7 +1,5 @@
-requires = ["setuptools >= 70.0.0"]
 # pyproject.toml
 [tool.pytest.ini_options]
-minversion = "6.0"
 addopts = "-ra --cov=./src --cov-fail-under=80 --no-cov-on-fail --cov-report=term:skip-covered --cov-report=html:build/reports/coverage --cov-branch"
 testpaths = [
     "tests"
@@ -15,7 +13,7 @@ omit = [
 
 [tool.ruff]
 line-length = 127
-target-version = "py310"
+target-version = "py312"
 exclude = [".git", "__pycache__", "build", "dist"]
 
 [tool.ruff.lint.mccabe]
@@ -37,6 +35,40 @@ indent-style = "space"
 skip-magic-trailing-comma = false
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.12.3"
+plugins = ['pydantic.mypy']
 strict = true
 ignore_missing_imports = true
+exclude = [
+    "scripts"
+]
+
+[tool.poetry]
+name = "disability-max-ratings-api"
+version = "0.1.0"
+description = "API to get the maximum rating for a collection of disabilities."
+readme = "README.md"
+license = "LICENSE.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "3.12.3"
+fastapi = "0.115.*"
+httpx = "0.28.*"
+uvicorn = {version = "0.34.*", extras = ["standard"]}
+
+[tool.poetry.group.dev.dependencies]
+mypy = "1.13.*"
+pre-commit = "4.0.*"
+ruff = "0.8.*"
+pytest = "8.3.*"
+pytest-cov = "6.0.*"
+bandit = {version = "1.8.*", extras = ["toml"]}
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+skips = ["B101"]  # https://bandit.readthedocs.io/en/latest/plugins/b101_assert_used.html
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

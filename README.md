@@ -1,4 +1,12 @@
 # Disability Max Ratings API
+[![Tests](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml/badge.svg)](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml)
+[![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
+![Python Version from PEP 621 TOML](https://img.shields.io/badge/Python-3.12-blue)
+[![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
+[![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
+[![Linting: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 
 > **Note:** This API was formerly known as Max CFI (Claim for Increase) API. All functionality remains the same.
 
@@ -6,43 +14,83 @@
 
 ## Getting started
 
-Install Python3.10
+### Install Python3.12.3
+
 If you're on a Mac, you can use pyenv to handle multiple python versions
 
-```
+```bash
 brew install pyenv
-pyenv install python3.10
-pyenv global python3.10 # or don't do this if you want a different version available globally for your system
+pyenv install 3.12.3
+pyenv global 3.12.3 # or don't do this if you want a different version available globally for your system
 ```
 
-Create a virtual env:
+### Install Poetry
 
-```
-python -m venv ~/.virtualenvs/domain-ee # or wherever you want
-source ~/.virtualenvs/domain-ee/bin/activate
-```
+This project uses [Poetry](https://python-poetry.org/docs/) to manage dependencies.
+
+Follow the directions on the [Poetry website](https://python-poetry.org/docs/#installation) for installation.
+
+### Create a virtual env (Optional)
+
+By default, Poetry will create its own virtual environment (see [here](https://python-poetry.org/docs/basic-usage/#using-your-virtual-environment)), but it will
+also detect and respect an existing virtual environment if you have one activated.
+
+#### Other options:
+
+* Create a virtual environment with python and activate it like so:
+  ```bash
+  python -m venv ~/.virtualenvs/domain-ee # or wherever you want
+  source ~/.virtualenvs/domain-ee/bin/activate
+  ```
+* Use [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) to create and activate virtual environments with `pyenv`.
+* Use [Poetry](https://python-poetry.org/docs/basic-usage/#activating-the-virtual-environment) to explicitly create and use a virtual environment.
 
 Make sure your python path is set up to pull from your virtualenv:
 
-```
-which python3
-# /Users/<your_username>/.virtualenvs/domain-ee/bin/python
+```bash
+which python
+# /path/to/your/virtualenv/bin/python
 ```
 
-Install dependencies and run webserver
+### Install dependencies
 
+Use Poetry to run and install all dependencies:
+
+```bash
+poetry install
 ```
-cd disability-max-ratings-api/src
-pip3 install -r dev-requirements.txt
-uvicorn api:app --port 8130 --reload
+
+### Install pre-commit hooks
+
+This project uses pre-commit hooks to ensure code quality. To install them, run:
+
+```bash
+poetry run pre-commit install
 ```
+
+To run the pre-commit hooks at any time, run the following command:
+```bash
+poetry run pre-commit run --all-files
+```
+
+## Run the server locally
+
+Using Poetry, run the following command from the root of the repository:
+
+```bash
+poetry run uvicorn src.python_src.api:app --port 8130 --reload
+```
+
+## Run the server with Docker
+
+TODO: update this to use the new disability-max-ratings-api Docker Compose file - <https://github.com/department-of-veterans-affairs/abd-vro/issues/3833>
 
 ## Testing it all together
 
 Run the Python webserver (uvicorn command above). Now you should be able to make a post request to the `/disability-max-ratings/`
 endpoint with a request body of the format:
 
-```
+```json
 {
     "diagnostic_codes": [
         6260
@@ -52,7 +100,7 @@ endpoint with a request body of the format:
 
 This should result in a response with the following body:
 
-```
+```json
 {
     "ratings": [
         {
@@ -84,74 +132,26 @@ This should result in a response with the following body:
 * If any entry of the `diagnostic_codes` is not found, the response `ratings` array will not contain the corresponding
   item.
 
-## Unit tests
+## Run Unit tests
 
-Make sure you're in your `.virtualenv`:
+Using Poetry, run the following command from the root of the repository:
 
-```
-source ~/.virtualenvs/domain-ee/bin/activate
-```
-
-Navigate to `disability-max-ratings-api/`:
-
-```
-cd disability-max-ratings-api
-```
-
-Run the tests:
-
-```
-pytest
+```bash
+poetry run pytest
 ```
 
 ## Contributing
 
-### Install dev dependencies
-
-```
-# TODO: update this to use the new disability-max-ratings-api
-source ~/.virtualenvs/domain-ee/bin/activate
-pip install -r dev-requirements.txt
-# MAKE SURE you are in adb-vro/domain-ee to get the right pre-commit-config.yaml installed
-pre-commit install
-```
+Follow steps for getting started above, then make your changes and submit a pull request.
 
 ## Building docs
 
-```
-# TODO: update this to use the new disability-max-ratings-api
-source ~/.virtualenvs/domain-ee/bin/activate
-cd ./disability-max-ratings-api
-python3 src/python_src/pull_api_documentation.py
-```
+Swagger docs can be viewed by running the server [locally](#run-the-server-locally) and navigating to `http://localhost:8130/docs`.
 
-## Docker Stuff
+If desired, the docs can be exported to `openapi.json` by running the following command:
 
-### Build the image
-
- TODO: update this to use the new disability-max-ratings-api Docker Compose file - <https://github.com/department-of-veterans-affairs/abd-vro/issues/3833>
-
-Follow steps for
-[Platform Base + API-Gateway](https://github.com/department-of-veterans-affairs/abd-vro/wiki/Docker-Compose#platform-base)
-then run the disability-max-ratings-api with the following command from the `disability-max-ratings-api directory`:
-
-TODO migrate away from gradlew to use a python alternative <https://github.com/department-of-veterans-affairs/abd-vro/issues/3832>
-```
-COMPOSE_PROFILES="all" ./gradlew :domain-ee:dockerComposeUp
-```
-
-### Verify API in API Gateway
-
-Navigate to [Swagger](http://localhost:8060/webjars/swagger-ui/index.html?urls.primaryName=3.%20Max%20CFI%20API)
-
-Try to send a request on the post endpoint with the following request body:
-
-```
-{
-  "diagnostic_codes": [
-    6260
-  ]
-}
+```bash
+poetry run python src/python_src/pull_api_documentation.py
 ```
 
 ## Repository History

@@ -1,7 +1,3 @@
-## This will match all files and assign them to the 'benefits-vro-engineers' team when a new PR is created.
+## This will match all files and assign them to the 'benefits-vro-engineers' and `benefits-employee-exp-engineers` team when a new PR is created. Either team can approve PRs.
 
-* @department-of-veterans-affairs/benefits-vro-engineers
-
-## Employee Experience Team
-
-* @department-of-veterans-affairs/benefits-employee-exp-engineers
+* @department-of-veterans-affairs/benefits-vro-engineers @department-of-veterans-affairs/benefits-employee-exp-engineers
