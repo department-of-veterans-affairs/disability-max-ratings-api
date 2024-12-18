@@ -1,4 +1,5 @@
 # Disability Max Ratings API
+
 [![Tests](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml/badge.svg)](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml)
 [![Coverage Status](https://coveralls.io/repos/github/department-of-veterans-affairs/disability-max-ratings-api/badge.svg?branch=ci-code-coverage)](https://coveralls.io/github/department-of-veterans-affairs/disability-max-ratings-api?branch=ci-code-coverage)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
@@ -7,7 +8,6 @@
 [![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
 [![Linting: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
 
 > **Note:** This API was formerly known as Max CFI (Claim for Increase) API. All functionality remains the same.
 
