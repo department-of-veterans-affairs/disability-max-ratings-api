@@ -1,4 +1,4 @@
-name: "Test & Lint"
+name: "Test, Lint & Coverage"
 
 on:
   push:
@@ -37,16 +37,14 @@ jobs:
       - name: "Run mypy"
         run: poetry run mypy .
 
-      - name: "Run tests"
-        run: |
-          poetry run pytest --cov=src --cov-report=xml --cov-report=term-missing
+      - name: "Run tests with coverage"
+        run: poetry run pytest --cov=src --cov-report=xml --cov-report=term-missing
 
-      - name: Upload coverage to Code Climate
+      - name: "Upload coverage to Code Climate"
         uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
-          coverageCommand: poetry run pytest --cov=src --cov-report=xml
           coverageLocations: |
             ${{github.workspace}}/coverage.xml:coverage.py
           debug: true
