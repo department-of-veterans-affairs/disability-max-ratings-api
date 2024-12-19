@@ -1,6 +1,6 @@
 # pyproject.toml
 [tool.pytest.ini_options]
-addopts = "-ra --cov=./src --cov-fail-under=80 --no-cov-on-fail --cov-report=term:skip-covered --cov-report=html:build/reports/coverage --cov-branch"
+addopts = "-ra --cov=./src --cov-fail-under=90 --no-cov-on-fail --cov-report=term:skip-covered --cov-report=html:build/reports/coverage --cov-branch"
 testpaths = [
     "tests"
 ]

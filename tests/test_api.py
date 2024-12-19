@@ -1,4 +1,5 @@
 from typing import Dict, List
+from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
@@ -117,3 +118,16 @@ def test_unprocessable_content_request_array_has_non_int_value(client: TestClien
 
     response = client.post(MAX_RATING, json=json_post_dict)
     assert response.status_code == 422
+
+
+def test_health_check(client: TestClient) -> None:
+    response = client.get('/health')
+    assert response.status_code == 200
+    assert response.json() == {'status': 'ok'}
+
+
+def test_health_check_with_empty_lookup_table(client: TestClient) -> None:
+    with patch('src.python_src.api.MAX_RATINGS_BY_CODE', {}):
+        response = client.get('/health')
+        assert response.status_code == 500
+        assert response.json() == {'detail': 'Max Rating by Diagnostic Code Lookup table is empty.'}
