@@ -161,3 +161,9 @@ poetry run python src/python_src/pull_api_documentation.py
 ## Repository History
 
 NOTE: this repository was split from [abd-vro](https://github.com/department-of-veterans-affairs/abd-vro/tree/develop/domain-ee/ee-max-cfi-app).
+
+## Automated Dependency Updates
+
+This repository uses Dependabot to keep dependencies up to date. Pull requests from Dependabot are automatically merged if:
+- All checks pass
+- The update is a minor or patch version change (major version updates require manual review)
