@@ -17,6 +17,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          # token with read/write repo access for abd-vro-machine
+          token: ${{ secrets.ABD_VRO_MACHINE_READ_WRITE_REPO }}
 
       - name: "Install Python"
         uses: actions/setup-python@v5
@@ -56,3 +59,5 @@ jobs:
           title: 'chore: update pre-commit hooks'
           commit-message: 'chore: update pre-commit hooks'
           branch: update-pre-commit-hooks
+          # same read/write token as the checkout step
+          token: ${{ secrets.ABD_VRO_MACHINE_READ_WRITE_REPO }}
