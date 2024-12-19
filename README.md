@@ -1,7 +1,8 @@
 # Disability Max Ratings API
 
 [![Tests](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml/badge.svg)](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml)
-[![Coverage Status](https://coveralls.io/repos/github/department-of-veterans-affairs/disability-max-ratings-api/badge.svg?branch=ci-code-coverage)](https://coveralls.io/github/department-of-veterans-affairs/disability-max-ratings-api?branch=ci-code-coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/YOUR_REPO_ID/maintainability)](https://codeclimate.com/github/department-of-veterans-affairs/disability-max-ratings-api/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/YOUR_REPO_ID/test_coverage)](https://codeclimate.com/github/department-of-veterans-affairs/disability-max-ratings-api/test_coverage)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
 ![Python Version from PEP 621 TOML](https://img.shields.io/badge/Python-3.12-blue)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)

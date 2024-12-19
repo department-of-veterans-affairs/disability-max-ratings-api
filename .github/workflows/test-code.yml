@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: "Checkout source code"
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: "Install Poetry"
         run: pipx install poetry
@@ -41,13 +43,13 @@ jobs:
         run: |
           poetry run pytest --cov=src --cov-report=xml --cov-report=term-missing
 
-      - name: Upload coverage to Coveralls
-        uses: coverallsapp/github-action@v2
+      - name: Upload coverage to Code Climate
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          file: coverage.xml
-          flag-name: Unit Tests
-          fail-on-error: false
-          base-path: ${{ github.workspace }}
-          compare-ref: ${{ github.event.pull_request.base.ref || github.base_ref || 'main' }}
-          github-write-mode: true
+          coverageCommand: poetry run pytest --cov=src --cov-report=xml
+          coverageLocations: |
+            ${{github.workspace}}/coverage.xml:coverage.py
+          debug: true
+          prefix: ${{github.workspace}}
