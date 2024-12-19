@@ -90,12 +90,17 @@ You can also run the service using Docker:
 docker compose up --build
 ```
 
-2. Test the API health/docs:
+2. Test the API health:
+```bash
+curl http://localhost:8130/health
+```
+
+3. View API documentation:
 ```bash
 curl http://localhost:8130/docs
 ```
 
-3. Test the API endpoint with a sample request:
+4. Test the API endpoint with a sample request:
 ```bash
 curl -X POST http://localhost:8130/disability-max-ratings/ \
   -H "Content-Type: application/json" \
@@ -114,9 +119,14 @@ Expected response:
 }
 ```
 
-4. Monitor container health:
+5. Monitor container health:
 ```bash
 docker compose ps
+```
+
+6. Run tests in Docker:
+```bash
+docker compose run --rm api poetry run pytest
 ```
 
 ## Testing it all together

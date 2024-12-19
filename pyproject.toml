@@ -50,6 +50,17 @@ description = "API to get the maximum rating for a collection of disabilities."
 authors = ["Department of Veterans Affairs"]
 readme = "README.md"
 license = "LICENSE.md"
+homepage = "https://github.com/department-of-veterans-affairs/disability-max-ratings-api"
+repository = "https://github.com/department-of-veterans-affairs/disability-max-ratings-api"
+keywords = ["veterans", "disability", "ratings", "api", "fastapi"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+]
 
 [tool.poetry.dependencies]
 python = "3.12.3"

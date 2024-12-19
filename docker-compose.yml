@@ -5,14 +5,14 @@ services:
     ports:
       - "8130:8130"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8130/docs"]
+      test: ["CMD", "curl", "-f", "http://localhost:8130/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
     restart: unless-stopped
     environment:
-      - ENV=local
+      - ENVIRONMENT=local
     volumes:
       - .:/app
     security_opt:
