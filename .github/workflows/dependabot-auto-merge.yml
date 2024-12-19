@@ -1,6 +1,9 @@
 name: Dependabot Auto-Merge
 on:
-  pull_request:
+  workflow_run:
+    workflows: ["Test Code"]  # Name of the test-code.yml workflow
+    types:
+      - completed
     branches: [ main ]
 
 permissions:
@@ -10,7 +13,9 @@ permissions:
 jobs:
   dependabot-auto-merge:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: |
+      github.event.workflow_run.conclusion == 'success' &&
+      github.actor == 'dependabot[bot]'
 
     steps:
       - name: Fetch Dependabot metadata
