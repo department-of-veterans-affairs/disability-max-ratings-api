@@ -13,6 +13,7 @@ services:
     restart: unless-stopped
     environment:
       - ENVIRONMENT=local
+      - PYTHONPATH=/app
     volumes:
       - .:/app
     security_opt:
