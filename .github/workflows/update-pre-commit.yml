@@ -56,3 +56,4 @@ jobs:
           title: 'chore: update pre-commit hooks'
           commit-message: 'chore: update pre-commit hooks'
           branch: update-pre-commit-hooks
+          token: MACHINE_USER_TOKEN_TO_ADD_COMMENT # token with read/write repo access for abd-vro-machine
