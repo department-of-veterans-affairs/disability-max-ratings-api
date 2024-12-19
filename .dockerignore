@@ -1,0 +1,17 @@
+.git
+.github
+.gitignore
+.env
+*.pyc
+__pycache__/
+tests/
+docs/
+.dockerignore
+Dockerfile
+docker-compose.yml
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/

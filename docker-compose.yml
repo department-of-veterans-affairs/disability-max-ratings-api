@@ -1,0 +1,20 @@
+services:
+  api:
+    build: .
+    container_name: disability-max-ratings-api
+    ports:
+      - "8130:8130"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8130/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    environment:
+      - ENVIRONMENT=local
+      - PYTHONPATH=/app
+    volumes:
+      - .:/app
+    security_opt:
+      - no-new-privileges:true
