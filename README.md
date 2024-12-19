@@ -1,12 +1,16 @@
 # Disability Max Ratings API
 
 [![Tests](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml/badge.svg)](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/3cdea963cb3092674df1/maintainability)](https://codeclimate.com/github/department-of-veterans-affairs/disability-max-ratings-api/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3cdea963cb3092674df1/test_coverage)](https://codeclimate.com/github/department-of-veterans-affairs/disability-max-ratings-api/test_coverage)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
 ![Python Version from PEP 621 TOML](https://img.shields.io/badge/Python-3.12-blue)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 [![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
 [![Linting: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+This repository uses CodeClimate for code coverage and maintainability reporting. See [Configuration Guide](docs/CONFIGURATION.md) for setup instructions.
 
 > **Note:** This API was formerly known as Max CFI (Claim for Increase) API. All functionality remains the same.
 
@@ -189,3 +193,9 @@ poetry run python src/python_src/pull_api_documentation.py
 ## Repository History
 
 NOTE: this repository was split from [abd-vro](https://github.com/department-of-veterans-affairs/abd-vro/tree/develop/domain-ee/ee-max-cfi-app).
+
+## Automated Dependency Updates
+
+This repository uses Dependabot to keep dependencies up to date. Pull requests from Dependabot are automatically merged if:
+- All checks pass
+- The update is a minor or patch version change (major version updates require manual review)
