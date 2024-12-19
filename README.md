@@ -81,9 +81,43 @@ Using Poetry, run the following command from the root of the repository:
 poetry run uvicorn src.python_src.api:app --port 8130 --reload
 ```
 
-## Run the server with Docker
+## Run with Docker
 
-TODO: update this to use the new disability-max-ratings-api Docker Compose file - <https://github.com/department-of-veterans-affairs/abd-vro/issues/3833>
+You can also run the service using Docker:
+
+1. Build and start the container:
+```bash
+docker compose up --build
+```
+
+2. Test the API health/docs:
+```bash
+curl http://localhost:8130/docs
+```
+
+3. Test the API endpoint with a sample request:
+```bash
+curl -X POST http://localhost:8130/disability-max-ratings/ \
+  -H "Content-Type: application/json" \
+  -d '{"diagnostic_codes": [6260]}'
+```
+
+Expected response:
+```json
+{
+    "ratings": [
+        {
+            "diagnostic_code": 6260,
+            "max_rating": 10
+        }
+    ]
+}
+```
+
+4. Monitor container health:
+```bash
+docker compose ps
+```
 
 ## Testing it all together
 
