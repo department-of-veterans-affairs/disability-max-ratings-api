@@ -28,7 +28,7 @@ app = FastAPI(
 
 
 @app.get('/health')
-def get_health_status() -> dict[str, str]:
+async def get_health_status() -> dict[str, str]:
     if not MAX_RATINGS_BY_CODE:
         raise HTTPException(status_code=500, detail='Max Rating by Diagnostic Code Lookup table is empty.')
 
@@ -40,7 +40,7 @@ def get_health_status() -> dict[str, str]:
 # replacing the legacy '/cfi/max-ratings' path that was specific to LHDI cloud.
 # This will require new API gateway configuration in the VA.gov cloud environment. For more details, see: https://github.com/department-of-veterans-affairs/abd-vro/issues/3850
 @app.post('/disability-max-ratings')
-def get_max_ratings(
+async def get_max_ratings(
     claim_for_increase: MaxRatingsForClaimForIncreaseRequest,
 ) -> MaxRatingsForClaimForIncreaseResponse:
     ratings = []
