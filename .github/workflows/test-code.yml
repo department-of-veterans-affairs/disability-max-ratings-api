@@ -9,7 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-python:
+  perform-checks:
+    name: "Test, Lint & Coverage"
     runs-on: ubuntu-latest
 
     steps:
@@ -44,5 +45,7 @@ jobs:
         uses: paambaati/codeclimate-action@v9.0.0
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-        with:
-          debug: true
+
+      - name: "Bandit Code Scan"
+        if: always()
+        run: poetry run bandit -c pyproject.toml -r -l .

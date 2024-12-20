@@ -35,7 +35,7 @@ indent-style = "space"
 skip-magic-trailing-comma = false
 
 [tool.mypy]
-python_version = "3.12.3"
+python_version = "3.12"
 plugins = ['pydantic.mypy']
 strict = true
 ignore_missing_imports = true
@@ -78,7 +78,6 @@ bandit = {version = "1.8.*", extras = ["toml"]}
 
 [tool.bandit]
 exclude_dirs = ["tests"]
-skips = ["B101"]  # https://bandit.readthedocs.io/en/latest/plugins/b101_assert_used.html
 
 [build-system]
 requires = ["poetry-core"]
