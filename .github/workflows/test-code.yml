@@ -41,11 +41,8 @@ jobs:
         run: poetry run pytest --cov=src --cov-report=xml --cov-report=term-missing
 
       - name: "Upload coverage to Code Climate"
-        uses: paambaati/codeclimate-action@v5.0.0
+        uses: paambaati/codeclimate-action@v9.0.0
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
         with:
-          coverageLocations: |
-            ${{github.workspace}}/coverage.xml:coverage.py
           debug: true
-          prefix: ${{github.workspace}}
