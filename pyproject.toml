@@ -69,7 +69,7 @@ httpx = "0.28.*"
 uvicorn = {version = "0.34.*", extras = ["standard"]}
 
 [tool.poetry.group.dev.dependencies]
-mypy = "1.13.*"
+mypy = "1.14.*"
 pre-commit = "4.0.*"
 ruff = "0.8.*"
 pytest = "8.3.*"
