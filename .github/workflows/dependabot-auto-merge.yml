@@ -1,10 +1,10 @@
 name: Dependabot Auto-Merge
+
 on:
   workflow_run:
     workflows: ["Test Code"]  # Name of the test-code.yml workflow
     types:
       - completed
-    branches: [ main ]
 
 permissions:
   contents: write
@@ -13,11 +13,14 @@ permissions:
 jobs:
   dependabot-auto-merge:
     runs-on: ubuntu-latest
-    if: |
+    if: >
       github.event.workflow_run.conclusion == 'success' &&
+      startsWith(github.event.workflow_run.head_commit.message, 'Bump') &&
       github.actor == 'dependabot[bot]'
-
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Fetch Dependabot metadata
         id: metadata
         uses: dependabot/fetch-metadata@v2
@@ -25,8 +28,8 @@ jobs:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Enable auto-merge for Dependabot PRs
-        if: ${{steps.metadata.outputs.update-type != 'version-update:semver-major'}}
+        if: ${{ steps.metadata.outputs.update-type != 'version-update:semver-major' }}
         run: gh pr merge --auto --merge "$PR_URL"
         env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
