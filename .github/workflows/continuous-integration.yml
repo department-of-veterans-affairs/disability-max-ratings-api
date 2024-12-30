@@ -1,0 +1,22 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  call-test-code:
+    name: Run Test, Lint & Coverage
+    uses: ./.github/workflows/test-code.yml
+
+  call-dependabot-auto-merge:
+    name: Run Dependabot Auto-Merge
+    needs: call-test-code
+    if: >
+      github.actor == 'dependabot[bot]' &&
+      needs.call-test-code.result == 'success'
+    uses: ./.github/workflows/dependabot-auto-merge.yml

@@ -1,12 +1,8 @@
 name: "Test, Lint & Coverage"
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  # Allow manual triggering
-  workflow_dispatch:
+  workflow_call: # Allows this workflow to be called from another workflow
+  workflow_dispatch: # Allow manual triggering
 
 jobs:
   perform-checks:
