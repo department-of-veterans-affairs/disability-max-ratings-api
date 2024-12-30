@@ -2,7 +2,7 @@ name: Dependabot Auto-Merge
 
 on:
   workflow_run:
-    workflows: ["Test Code"]  # Name of the test-code.yml workflow
+    workflows: ["Test, Lint & Coverage"]  # Name of the test-code.yml workflow
     types:
       - completed
 
