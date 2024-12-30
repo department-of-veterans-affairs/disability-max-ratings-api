@@ -31,5 +31,5 @@ jobs:
         if: ${{ steps.metadata.outputs.update-type != 'version-update:semver-major' }}
         run: gh pr merge --auto --merge "$PR_URL"
         env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_URL: ${{ steps.metadata.outputs.pull-request.html-url }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
