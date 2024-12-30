@@ -1,10 +1,8 @@
-name: Dependabot Auto-Merge
+name: "Dependabot Auto-Merge"
 
 on:
-  workflow_run:
-    workflows: ["Test, Lint & Coverage"]  # Name of the test-code.yml workflow
-    types:
-      - completed
+  workflow_call: # Allows this workflow to be called from another workflow
+  workflow_dispatch: # Allow manual triggering
 
 permissions:
   contents: write
