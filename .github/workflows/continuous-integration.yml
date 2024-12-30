@@ -13,6 +13,7 @@ jobs:
   call-test-code:
     name: Run Test, Lint & Coverage
     uses: ./.github/workflows/test-code.yml
+    secrets: inherit
 
   call-dependabot-auto-merge:
     name: Run Dependabot Auto-Merge
@@ -21,3 +22,4 @@ jobs:
       github.actor == 'dependabot[bot]' &&
       needs.call-test-code.result == 'success'
     uses: ./.github/workflows/dependabot-auto-merge.yml
+    secrets: inherit
