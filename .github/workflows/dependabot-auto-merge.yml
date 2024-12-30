@@ -10,10 +10,8 @@ permissions:
 
 jobs:
   dependabot-auto-merge:
+    if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
-    if: >
-      github.head_ref.startsWith('dependabot/') &&
-      github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Fetch Dependabot Metadata
         id: metadata
@@ -22,7 +20,7 @@ jobs:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Enable auto-merge for Dependabot PRs
-        if: ${{ steps.metadata.outputs.update-type != 'version-update:semver-major' }}
+        if: ${{ startsWith(steps.metadata.outputs.target-branch, 'dependabot/') && steps.metadata.outputs.update-type != 'version-update:semver-major' }}
         run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{ steps.metadata.outputs.pull-request.html-url }}
