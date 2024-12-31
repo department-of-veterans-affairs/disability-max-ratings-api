@@ -105,6 +105,7 @@ You can also run the service using Docker:
 
 2. Check Endpoints
 
+   To check the endpoints, you can [use Bruno](#using-bruno), or use the curl commands below:
    ```bash
    # API docs
    curl http://localhost:8130/docs
@@ -131,9 +132,7 @@ You can also run the service using Docker:
 
 3. View API documentation:
 
-  ```bash
-  curl http://localhost:8130/docs
-  ```
+   Open your web-browser and navigate to http://localhost:8130/docs.
 
 4. Development Environment
 
@@ -146,6 +145,12 @@ You can also run the service using Docker:
    ```
 
    Expected: All tests pass (>80% coverage), user should be non-root (uid=1000)
+
+### Using Bruno
+This project utilizes [Bruno](https://www.usebruno.com/) for request testing. The collection for the current endpoints can be imported using the [collections.json](bruno/collections.json) file. Once imported, the requests below can be run via the Bruno application:
+- Docs Endpoint
+- Health Endpoint
+- Disability Max Ratings Endpoint
 
 ### Notes on usage
 

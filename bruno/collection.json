@@ -1,0 +1,124 @@
+{
+  "name": "Max Ratings AP121I",
+  "version": "1",
+  "items": [
+    {
+      "type": "http",
+      "name": "Health Endpoint",
+      "seq": 3,
+      "request": {
+        "url": "http://localhost:8130/health",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [
+          {
+            "name": "res.status",
+            "value": "eq 200",
+            "enabled": true,
+            "uid": "IKJiaIbt8scCq4nIa90ZB"
+          },
+          {
+            "name": "res.body.status",
+            "value": "eq ok",
+            "enabled": true,
+            "uid": "OmYqFZdJOd7IWnrmwCcEp"
+          }
+        ],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Max Ratings Endpoint",
+      "seq": 2,
+      "request": {
+        "url": "http://localhost:8130/disability-max-ratings",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"diagnostic_codes\": [\n    6260\n  ]\n}",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [
+          {
+            "name": "res.status",
+            "value": "eq 200",
+            "enabled": true,
+            "uid": "yR5Wtn5gkN2IlGHxvFfiu"
+          },
+          {
+            "name": "res.body.ratings",
+            "value": "length 1",
+            "enabled": true,
+            "uid": "1Gu32zcVRo0RheFJek8kk"
+          },
+          {
+            "name": "res.body.ratings[0].diagnostic_code",
+            "value": "eq 6260",
+            "enabled": true,
+            "uid": "cC6Q75ssefdSl6liwi8sn"
+          },
+          {
+            "name": "res.body.ratings[0].max_rating",
+            "value": "eq 10",
+            "enabled": true,
+            "uid": "IbPFlr3jCorpMutDX1Ye2"
+          }
+        ],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Docs Endpoint",
+      "seq": 4,
+      "request": {
+        "url": "http://localhost:8130/docs",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    }
+  ],
+  "environments": [],
+  "brunoConfig": {
+    "version": "1",
+    "name": "Max Ratings API",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ]
+  }
+}
