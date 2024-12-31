@@ -6,7 +6,6 @@ on:
 
 jobs:
   perform-checks:
-    name: "Test, Lint & Coverage"
     runs-on: ubuntu-latest
 
     steps:
