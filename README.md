@@ -176,10 +176,6 @@ Using Poetry, run the following command from the root of the repository:
 poetry run pytest
 ```
 
-## Contributing
-
-Follow steps for getting started above, then make your changes and submit a pull request.
-
 ## Building docs
 
 Swagger docs can be viewed by running the server [locally](#run-the-server-locally) and navigating to `http://localhost:8130/docs`.
@@ -199,3 +195,5 @@ NOTE: this repository was split from [abd-vro](https://github.com/department-of-
 This repository uses Dependabot to keep dependencies up to date. Pull requests from Dependabot are automatically merged if:
 - All checks pass
 - The update is a minor or patch version change (major version updates require manual review)
+
+Interested in contributing? Check out our [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
