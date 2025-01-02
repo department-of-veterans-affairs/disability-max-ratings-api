@@ -130,4 +130,4 @@ def test_health_check_with_empty_lookup_table(client: TestClient) -> None:
     with patch('src.python_src.api.MAX_RATINGS_BY_CODE', {}):
         response = client.get('/health')
         assert response.status_code == 500
-        assert response.json() == {'detail': 'Max Rating by Diagnostic Code Lookup table is empty.'}
+        assert response.json() == {'status': 'unhealthy', 'details': 'Max Rating by Diagnostic Code Lookup table is empty.'}
