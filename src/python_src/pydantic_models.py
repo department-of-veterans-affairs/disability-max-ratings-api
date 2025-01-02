@@ -13,3 +13,12 @@ class Rating(BaseModel):
 
 class MaxRatingsForClaimForIncreaseResponse(BaseModel):
     ratings: list[Rating] = []
+
+
+class HealthCheckResponse(BaseModel):
+    status: str = Field(examples=['ok'])
+
+
+class HealthCheckErrorResponse(BaseModel):
+    status: str = Field(examples=['unhealthy'])
+    details: str = Field(examples=['Max Rating by Diagnostic Code Lookup table is empty.'])
