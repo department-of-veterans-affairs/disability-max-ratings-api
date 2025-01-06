@@ -61,6 +61,7 @@ classifiers = [
     "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
     "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
 ]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "3.12.3"
