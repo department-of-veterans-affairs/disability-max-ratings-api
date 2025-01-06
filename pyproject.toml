@@ -65,17 +65,17 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "3.12.3"
-fastapi = "0.115.*"
-httpx = "0.28.*"
-uvicorn = {version = "0.34.*", extras = ["standard"]}
+fastapi = "0.115.6"
+httpx = "0.28.1"
+uvicorn = {version = "0.34.0", extras = ["standard"]}
 
 [tool.poetry.group.dev.dependencies]
-mypy = "1.14.*"
-pre-commit = "4.0.*"
-ruff = "0.8.*"
-pytest = "8.3.*"
-pytest-cov = "6.0.*"
-bandit = {version = "1.8.*", extras = ["toml"]}
+mypy = "1.14.1"
+pre-commit = "4.0.1"
+ruff = "0.8.6"
+pytest = "8.3.4"
+pytest-cov = "6.0.0"
+bandit = {version = "1.8.0", extras = ["toml"]}
 
 [tool.bandit]
 exclude_dirs = ["tests"]
