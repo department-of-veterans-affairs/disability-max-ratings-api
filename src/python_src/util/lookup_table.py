@@ -1,13 +1,14 @@
 import csv
+import logging
 import os
 
 from .data.table_version import TABLE_VERSION
-from .logger import logger
 
 TABLE_NAME = 'Diagnostic Code Lookup Table.csv'
 
 
 def get_max_ratings_by_code() -> dict[int, int]:
+    logger = logging.getLogger('uvicorn.error')
     logger.info(f'Loading Disability Max Ratings from Diagnostic Code Lookup Table v{TABLE_VERSION}')
 
     filename = os.path.join(os.path.dirname(__file__), 'data', TABLE_NAME)
