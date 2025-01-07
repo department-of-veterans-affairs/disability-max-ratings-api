@@ -7,7 +7,6 @@ from pydantic_models import (
     Rating,
 )
 from starlette.responses import JSONResponse
-from util.logger import logger
 from util.lookup_table import MAX_RATINGS_BY_CODE, get_max_rating
 from util.sanitizer import sanitize
 
@@ -80,10 +79,7 @@ async def get_max_ratings(
             rating = Rating(diagnostic_code=int(sanitize(dc)), max_rating=max_rating)
             ratings.append(rating)
 
-    response = MaxRatingsForClaimForIncreaseResponse(ratings=ratings)
-
-    logger.info(f'event=getMaxRating response={response.model_dump_json()}')
-    return response
+    return MaxRatingsForClaimForIncreaseResponse(ratings=ratings)
 
 
 # Rough boundaries of diagnostic codes as shown by document at
