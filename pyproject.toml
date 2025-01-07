@@ -1,4 +1,32 @@
 # pyproject.toml
+[project]
+name = "disability-max-ratings-api"
+version = "0.1.0"
+description = "API to get the maximum rating for a collection of disabilities."
+dynamic = ["dependencies"]
+authors = [
+    {name = "Department of Veterans Affairs"}
+]
+readme = "README.md"
+license = {file = "LICENSE.md" }
+keywords = ["veterans", "disability", "ratings", "api", "fastapi"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+]
+requires-python = ">= 3.12"
+
+[project.urls]
+homepage = "https://github.com/department-of-veterans-affairs/disability-max-ratings-api"
+repository = "https://github.com/department-of-veterans-affairs/disability-max-ratings-api"
+
+[tool.poetry]
+package-mode = false
+
 [tool.pytest.ini_options]
 addopts = "-ra --cov=./src --cov-fail-under=90 --no-cov-on-fail --cov-report=term:skip-covered --cov-report=html:build/reports/coverage --cov-branch"
 testpaths = [
@@ -43,28 +71,9 @@ exclude = [
     "scripts"
 ]
 
-[tool.poetry]
-name = "disability-max-ratings-api"
-version = "0.1.0"
-description = "API to get the maximum rating for a collection of disabilities."
-authors = ["Department of Veterans Affairs"]
-readme = "README.md"
-license = "LICENSE.md"
-homepage = "https://github.com/department-of-veterans-affairs/disability-max-ratings-api"
-repository = "https://github.com/department-of-veterans-affairs/disability-max-ratings-api"
-keywords = ["veterans", "disability", "ratings", "api", "fastapi"]
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
-    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-]
-package-mode = false
-
 [tool.poetry.dependencies]
 python = "3.12.3"
+poetry = "2.0.0"
 fastapi = "0.115.6"
 httpx = "0.28.1"
 uvicorn = {version = "0.34.0", extras = ["standard"]}

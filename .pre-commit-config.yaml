@@ -31,7 +31,7 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/python-poetry/poetry
-    rev: '1.8.5'  # Must be updated manually (see https://python-poetry.org/docs/pre-commit-hooks/#why-does-pre-commit-autoupdate-not-update-to-the-latest-version
+    rev: '2.0.0'  # Must be updated manually (see https://python-poetry.org/docs/pre-commit-hooks/#why-does-pre-commit-autoupdate-not-update-to-the-latest-version
     hooks:
       - id: poetry-check
       - id: poetry-lock
