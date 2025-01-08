@@ -11,12 +11,12 @@ RUN apt-get update && \
 # Install Poetry
 RUN pip install --no-cache-dir poetry==2.0.0
 
+# Copy only the poetry files to leverage caching
+COPY pyproject.toml poetry.lock LICENSE.md ./
+
 #Configure Poetry (no virtualenvs and silence export warnings)
 RUN poetry config virtualenvs.create false && \
     poetry install --only main --no-interaction --no-ansi
-
-# Copy only the poetry files to leverage caching
-COPY pyproject.toml poetry.lock LICENSE.md ./
 
 # Install dependencies
 RUN poetry install --no-interaction --no-ansi --no-root
