@@ -14,12 +14,9 @@ RUN pip install --no-cache-dir poetry==2.0.0
 # Copy only the poetry files to leverage caching
 COPY pyproject.toml poetry.lock LICENSE.md ./
 
-#Configure Poetry (no virtualenvs and silence export warnings)
+#Configure Poetry and Install Dependencies (no virtualenvs and silence export warnings)
 RUN poetry config virtualenvs.create false && \
-    poetry install --only main --no-interaction --no-ansi
-
-# Install dependencies
-RUN poetry install --no-interaction --no-ansi --no-root
+    poetry install --no-interaction --no-ansi --no-root
 
 # Stage 2: Runner
 FROM python:3.12.3-slim AS runner
