@@ -8,17 +8,15 @@ RUN apt-get update && \
     apt-get install -y curl && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Poetry, plugin, and initialize config
-RUN pip install --no-cache-dir poetry==1.8.5 poetry-plugin-export==1.7.1 && \
-    poetry config virtualenvs.create false && \
-    poetry config virtualenvs.in-project false && \
-    poetry config warnings.export false
+# Install Poetry
+RUN pip install --no-cache-dir poetry==2.0.0
 
 # Copy only the poetry files to leverage caching
-COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml poetry.lock LICENSE.md ./
 
-# Install dependencies
-RUN poetry install --no-interaction --no-ansi --no-root
+#Configure Poetry and Install Dependencies (no virtualenvs and silence export warnings)
+RUN poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-ansi --no-root
 
 # Stage 2: Runner
 FROM python:3.12.3-slim AS runner
