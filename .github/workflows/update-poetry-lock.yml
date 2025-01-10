@@ -8,40 +8,38 @@ jobs:
   update-poetry-lock:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
+    env:
+      POETRY_VERSION: "2.0.0"
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Check Poetry version in lock file
       - name: Check Poetry version in lock file
         id: check_poetry_version
         run: |
-          if ! grep '"poetry": "2.0.0"' poetry.lock; then
+          if ! grep '"poetry": "$POETRY_VERSION"' poetry.lock; then
             echo "lock_needs_update=true" >> $GITHUB_ENV
           else
             echo "lock_needs_update=false" >> $GITHUB_ENV
 
-      # Step 3: Set up Python and Poetry (only if lock file needs update)
       - name: Set up Python and Poetry
         if: env.lock_needs_update == 'true'
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
+
       - name: Install Poetry
         if: env.lock_needs_update == 'true'
-        run: pip install poetry==2.0.0
+        run: pip install poetry==$POETRY_VERSION
 
-      # Step 4: Update the lock file if needed
       - name: Update Poetry lock file
         if: env.lock_needs_update == 'true'
         run: poetry lock
 
-      # Step 5: Commit and push changes if the lock file was updated
       - name: Commit and push changes
         if: env.lock_needs_update == 'true'
         run: |
           git add poetry.lock
-          git commit -m "Update poetry.lock using Poetry 2.0.0"
+          git commit -m "Update poetry.lock using Poetry $POETRY_VERSION"
           git push
