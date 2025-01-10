@@ -10,8 +10,19 @@ on:
   workflow_dispatch: # Allow manual triggering
 
 jobs:
+  update-poetry-lock:
+    name: Update Poetry Lock
+    if: >
+      github.actor == 'dependabot[bot]'
+    uses: ./.github/workflows/update-poetry-lock.yml
+    secrets: inherit
+
   call-test-code:
     name: Run Test, Lint & Coverage
+    needs: update-poetry-lock
+    if: >
+      github.actor != 'dependabot[bot]' ||
+      (needs.update-poetry-lock.result == 'success' || needs.update-poetry-lock.result == 'skipped')
     uses: ./.github/workflows/test-code.yml
     secrets: inherit
 
