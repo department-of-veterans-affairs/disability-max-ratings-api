@@ -22,7 +22,8 @@ jobs:
     needs: update-poetry-lock
     if: >
       github.actor != 'dependabot[bot]' ||
-      (needs.update-poetry-lock.result == 'success' || needs.update-poetry-lock.result == 'skipped')
+      (github.actor == 'dependabot[bot]' &&
+       (needs.update-poetry-lock.result == 'success' || needs.update-poetry-lock.result == 'skipped'))
     uses: ./.github/workflows/test-code.yml
     secrets: inherit
 
