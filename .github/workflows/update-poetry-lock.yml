@@ -23,15 +23,16 @@ jobs:
             echo "lock_needs_update=false" >> $GITHUB_ENV
           fi
 
+      - name: Install Poetry
+        if: env.lock_needs_update == 'true'
+        run: pipx install poetry==${{ env.POETRY_VERSION }}
+
       - name: Install Python
+        if: env.lock_needs_update == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12.3"
           cache: "poetry"
-
-      - name: Install Poetry
-        if: env.lock_needs_update == 'true'
-        run: pip install poetry==${{ env.POETRY_VERSION }}
 
       - name: Update Poetry lock file
         if: env.lock_needs_update == 'true'
