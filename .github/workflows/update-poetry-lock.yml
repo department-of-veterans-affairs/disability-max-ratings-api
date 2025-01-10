@@ -21,6 +21,7 @@ jobs:
             echo "lock_needs_update=true" >> $GITHUB_ENV
           else
             echo "lock_needs_update=false" >> $GITHUB_ENV
+          fi
 
       - name: Install Python
         uses: actions/setup-python@v5
