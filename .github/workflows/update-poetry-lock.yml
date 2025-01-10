@@ -3,6 +3,9 @@ name: Update Poetry Lock
 on:
   workflow_call:     # Allows this workflow to be called from another workflow
 
+permissions:
+  contents: write
+
 jobs:
   update-poetry-lock:
     if: github.actor == 'dependabot[bot]'
@@ -11,8 +14,12 @@ jobs:
       POETRY_VERSION: "2.0.0"
 
     steps:
-      - name: Checkout code
+      - name: Check out the PR branch
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          fetch-depth: 0
 
       - name: Check Poetry version in lock file
         id: check_poetry_version
