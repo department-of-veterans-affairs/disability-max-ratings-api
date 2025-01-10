@@ -18,7 +18,7 @@ updates:
     directory: "/"
     target-branch: "main"
     schedule:
-      interval: "hourly"
+      interval: "daily"
     open-pull-requests-limit: 10
     groups:
       version-update:
