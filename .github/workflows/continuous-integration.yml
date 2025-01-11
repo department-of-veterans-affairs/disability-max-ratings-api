@@ -9,6 +9,10 @@ on:
       - main
   workflow_dispatch: # Allow manual triggering
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   update-poetry-lock:
     name: Update Poetry Lock
@@ -19,7 +23,6 @@ jobs:
 
   call-test-code:
     name: Run Test, Lint & Coverage
-    needs: update-poetry-lock
     if: always()
     uses: ./.github/workflows/test-code.yml
     secrets: inherit
