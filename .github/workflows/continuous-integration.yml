@@ -25,6 +25,7 @@ jobs:
 
   call-test-code:
     name: Run Test, Lint & Coverage
+    needs: update-poetry-lock
     if: always()
     uses: ./.github/workflows/test-code.yml
     secrets: inherit
