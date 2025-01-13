@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - main
-    types: [opened, ready_for_review, synchronize, reopened]
 
   push:
     branches:
@@ -16,17 +15,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  update-poetry-lock:
-    name: Update Poetry Lock
-    if: >
-      github.actor == 'dependabot[bot]'
-    uses: ./.github/workflows/update-poetry-lock.yml
-    secrets: inherit
 
   call-test-code:
     name: Run Test, Lint & Coverage
-    needs: update-poetry-lock
-    if: always()
     uses: ./.github/workflows/test-code.yml
     secrets: inherit
 
