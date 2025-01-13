@@ -73,7 +73,7 @@ exclude = [
 
 [tool.poetry.dependencies]
 python = "3.12.3"
-poetry = "2.0.0"
+poetry = "2.0.1"
 fastapi = "0.115.6"
 httpx = "0.28.1"
 uvicorn = {version = "0.34.0", extras = ["standard"]}
