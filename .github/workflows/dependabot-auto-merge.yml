@@ -2,7 +2,6 @@ name: "Dependabot Auto-Merge"
 
 on:
   workflow_call: # Allows this workflow to be called from another workflow
-  workflow_dispatch: # Allow manual triggering
 
 permissions:
   contents: write
@@ -10,7 +9,7 @@ permissions:
 
 jobs:
   dependabot-auto-merge:
-    if: github.actor == 'dependabot[bot]'
+    if: github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'abd-vro-machine'
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Dependabot Metadata

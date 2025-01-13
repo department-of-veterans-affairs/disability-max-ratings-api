@@ -1,6 +1,6 @@
 # Disability Max Ratings API
 
-[![Tests](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml/badge.svg)](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/test-code.yml)
+[![Continuous Integration](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/continuous-integration.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3cdea963cb3092674df1/maintainability)](https://codeclimate.com/github/department-of-veterans-affairs/disability-max-ratings-api/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3cdea963cb3092674df1/test_coverage)](https://codeclimate.com/github/department-of-veterans-affairs/disability-max-ratings-api/test_coverage)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
