@@ -20,6 +20,8 @@ jobs:
       - name: Check out the PR branch
         uses: actions/checkout@v3
         with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
           fetch-depth: 0
 
       - name: Check Poetry version in lock file
@@ -55,4 +57,4 @@ jobs:
           git config user.email "actions@github.com"
           git add poetry.lock
           git commit -m "Update poetry.lock using Poetry ${{ env.POETRY_VERSION }}"
-          git push origin HEAD:${{ github.ref_name }}
+          git push
