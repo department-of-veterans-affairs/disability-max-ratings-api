@@ -25,7 +25,7 @@ jobs:
     name: Run Dependabot Auto-Merge
     needs: call-test-code
     if: >
-      (github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'abd-vro-machine') &&
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
       needs.call-test-code.result == 'success'
     uses: ./.github/workflows/dependabot-auto-merge.yml
     secrets: inherit
