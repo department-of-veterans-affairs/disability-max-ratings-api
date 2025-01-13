@@ -23,6 +23,8 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           fetch-depth: 0
+          # token with read/write repo access for abd-vro-machine
+          token: ${{ secrets.ABD_VRO_MACHINE_READ_WRITE_REPO }}
 
       - name: Check Poetry version in lock file
         id: check_poetry_version
