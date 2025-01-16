@@ -21,8 +21,12 @@ jobs:
           python-version: "3.12.3"
           cache: "poetry"
 
-      - name: "Install dependencies and validate dependencies against poetry.lock"
-        run: poetry install && poetry check
+      - name: "Install dependencies"
+        run: poetry install
+
+# TODO: Uncomment when dependabot uses poetry 2.x.x. See https://github.com/dependabot/dependabot-core/issues/11237
+#      - name: "Validate dependencies against poetry.lock"
+#        run: poetry check
 
       - name: "Run ruff format"
         run: poetry run ruff format
