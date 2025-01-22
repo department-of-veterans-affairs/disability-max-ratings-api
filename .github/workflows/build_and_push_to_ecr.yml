@@ -2,12 +2,11 @@ name: Build and Push to ECR
 
 on:
   workflow_dispatch: # Allow manual triggering
-# TODO: Uncomment when workflow dispatch is confirmed to work
-#  push:
-#    branches:
-#      - main
-#    paths-ignore:
-#      - "*.md"  # Ignore Documentation changes
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "*.md"  # Ignore Documentation changes
 
 permissions:
   id-token: write # This is required for requesting the JWT
