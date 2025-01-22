@@ -1,0 +1,44 @@
+name: Build and Push to ECR
+
+on:
+  workflow_dispatch: # Allow manual triggering
+# TODO: Uncomment when workflow dispatch is confirmed to work
+#  push:
+#    branches:
+#      - main
+#    paths-ignore:
+#      - "*.md"  # Ignore Documentation changes
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+jobs:
+  build-and-push-to-ecr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout source code"
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.GHA_OIDC_ROLE }}
+          aws-region: us-gov-west-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          mask-password: 'true'
+
+      - name: Build Docker Image And Push to ECR
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
+          cache-from: type=registry,ref=${{ secrets.ECR_REPOSITORY }}
+          cache-to: type=inline
