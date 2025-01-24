@@ -39,5 +39,11 @@ jobs:
           push: true
           tags: |
             ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest
           cache-from: type=registry,ref=${{ secrets.ECR_REPOSITORY }}
           cache-to: type=inline
+
+      - name: Notify on Failure
+        if: failure()
+        run: |
+          echo "Build or push failed"
