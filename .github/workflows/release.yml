@@ -1,0 +1,91 @@
+name: Release and Update Manifests
+
+on:
+  workflow_dispatch:
+    inputs:
+      environments:
+        type: choice
+        description: 'Environment to deploy to'
+        options:
+          - dev
+  workflow_run:
+    workflows:
+      - 'Build and push to ECR'
+    branches:
+      - main
+    types:
+      - completed
+
+env:
+  auto_deploy_envs: 'dev'
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+jobs:
+  prepare-environments:
+    runs-on: ubuntu-latest
+    outputs:
+      environments: ${{ steps.set-environments.outputs.environments }}
+    steps:
+      - name: Set to auto deploy environments when not run via workflow dispatch
+        if: github.event.inputs.environments == ''
+        run: |
+          echo "triggered via commit to main"
+          echo "environments=${{ env.autoDeployEnvs }}" >> $GITHUB_ENV
+      - name: Set to environments specified in input when run via workflow dispatch
+        if: github.event.inputs.environments != ''
+        run: |
+          echo "triggered via workflow dispatch"
+          echo "environments=${{ github.event.inputs.environments }}" >> $GITHUB_ENV
+      - name: Set output
+        id: set-environments
+        run: |
+          echo "environments=${{ env.environments }}" >> $GITHUB_OUTPUT
+
+  update_image_tag:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.GHA_OIDC_ROLE }}
+          aws-region: us-gov-west-1
+
+      - name: Get bot token from Parameter Store
+        uses: department-of-veterans-affairs/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /devops/VA_VSP_BOT_GITHUB_TOKEN
+          env_variable_name: GITHUB_TOKEN
+
+      - name: Check out vsp-infra-application-manifests
+        uses: actions/checkout@v4
+        with:
+          repository: department-of-veterans-affairs/vsp-infra-application-manifests
+          token: ${{ env.GITHUB_TOKEN }}
+          fetch-depth: 1
+          path: vsp-infra-application-manifests
+
+      - name: Update image tag in infra repo
+        run: |
+          cd vsp-infra-application-manifests/apps/disability-max-ratings-api
+          envs=( ${{ needs.prepare-values.outputs.environments }} )
+          for env in ${envs[*]};
+          do
+            yq e -i '(.image.tag) |= "${{ github.sha }}"' $env/values.yaml
+          done
+          git diff --unified=0
+
+
+      # TODO: Remove comments below once the above steps are working correctly
+#      - name: Add and Commit file
+#        uses: EndBug/add-and-commit@v9.1.4
+#        with:
+#          author_email: 70344339+va-vsp-bot@users.noreply.github.com
+#          author_name: va-vsp-bot
+#          cwd: vsp-infra-application-manifests/apps/disability-max-ratings-api
+#          fetch: false
+#          message: 'auto-updating disability-max-ratings-api image tags'
