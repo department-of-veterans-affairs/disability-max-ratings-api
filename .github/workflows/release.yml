@@ -82,13 +82,11 @@ jobs:
           done
           git diff --unified=0
 
-
-      # TODO: Remove comments below once the above steps are working correctly
-#      - name: Add and Commit file
-#        uses: EndBug/add-and-commit@v9.1.4
-#        with:
-#          author_email: 70344339+va-vsp-bot@users.noreply.github.com
-#          author_name: va-vsp-bot
-#          cwd: vsp-infra-application-manifests/apps/disability-max-ratings-api
-#          fetch: false
-#          message: 'auto-updating disability-max-ratings-api image tags'
+      - name: Add and Commit file
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_email: 70344339+va-vsp-bot@users.noreply.github.com
+          author_name: va-vsp-bot
+          cwd: vsp-infra-application-manifests/apps/disability-max-ratings-api
+          fetch: false
+          message: 'auto-updating disability-max-ratings-api ${{ needs.prepare-environments.outputs.environments }} images'
