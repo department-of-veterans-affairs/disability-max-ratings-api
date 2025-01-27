@@ -32,8 +32,8 @@ jobs:
       - name: Set to auto deploy environments when not run via workflow dispatch
         if: github.event.inputs.environments == ''
         run: |
-          echo "triggered via commit to main"
-          echo "environments=${{ env.autoDeployEnvs }}" >> $GITHUB_ENV
+          echo "triggered via push to main"
+          echo "environments=${{ env.auto_deploy_envs }}" >> $GITHUB_ENV
       - name: Set to environments specified in input when run via workflow dispatch
         if: github.event.inputs.environments != ''
         run: |
@@ -47,7 +47,8 @@ jobs:
   update_image_tag:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-
+    needs:
+      - prepare-environments
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -72,7 +73,7 @@ jobs:
       - name: Update image tag in infra repo
         run: |
           cd vsp-infra-application-manifests/apps/disability-max-ratings-api
-          envs=( ${{ needs.prepare-values.outputs.environments }} )
+          envs=( ${{ needs.prepare-environments.outputs.environments }} )
           for env in ${envs[*]};
           do
             yq e -i '(.image.tag) |= "${{ github.sha }}"' $env/values.yaml
