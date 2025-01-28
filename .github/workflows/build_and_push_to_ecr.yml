@@ -6,7 +6,12 @@ on:
     branches:
       - main
     paths-ignore:
-      - "*.md"  # Ignore Documentation changes
+      - "**/*.md"  # Ignore Documentation changes
+      - ".github/**"  # Ignore GitHub Actions changes
+
+concurrency:
+  group: build-and-push-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   id-token: write # This is required for requesting the JWT

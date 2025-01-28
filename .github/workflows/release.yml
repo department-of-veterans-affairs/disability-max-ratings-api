@@ -19,6 +19,10 @@ on:
 env:
   auto_deploy_envs: 'dev'
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   id-token: write # This is required for requesting the JWT
   contents: read  # This is required for actions/checkout
@@ -89,4 +93,4 @@ jobs:
           author_name: va-vsp-bot
           cwd: vsp-infra-application-manifests/apps/disability-max-ratings-api
           fetch: false
-          message: 'auto-updating disability-max-ratings-api ${{ needs.prepare-environments.outputs.environments }} images'
+          message: 'auto-updating disability-max-ratings-api to commit: ${{ github.sha }} for env(s): ${{ needs.prepare-environments.outputs.environments }}'
