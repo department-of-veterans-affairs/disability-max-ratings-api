@@ -8,6 +8,7 @@ on:
         description: 'Environment to deploy to'
         options:
           - dev
+          - staging
   workflow_run:
     workflows:
       - 'Build and push to ECR'
@@ -17,7 +18,7 @@ on:
       - completed
 
 env:
-  auto_deploy_envs: 'dev'
+  auto_deploy_envs: 'dev staging'
 
 concurrency:
   group: release-${{ github.ref }}
