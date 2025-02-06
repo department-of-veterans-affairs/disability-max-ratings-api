@@ -18,7 +18,7 @@ on:
       - completed
 
 env:
-  auto_deploy_envs: 'dev,staging'
+  auto_deploy_envs: 'dev staging'
 
 concurrency:
   group: release-${{ github.ref }}
