@@ -78,7 +78,7 @@ exclude = [
 
 [tool.poetry.dependencies]
 python = "3.12.3"
-poetry = "2.0.1"
+poetry = "2.1.1"
 fastapi = "0.115.8"
 httpx = "0.28.1"
 uvicorn = {version = "0.34.0", extras = ["standard"]}
@@ -89,7 +89,7 @@ pre-commit = "4.1.0"
 ruff = "0.9.6"
 pytest = "8.3.4"
 pytest-cov = "6.0.0"
-bandit = {version = "1.8.2", extras = ["toml"]}
+bandit = {version = "1.8.3", extras = ["toml"]}
 
 [tool.bandit]
 exclude_dirs = ["tests"]
