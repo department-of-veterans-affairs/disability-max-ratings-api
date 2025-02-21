@@ -5,10 +5,12 @@ on:
     inputs:
       environments:
         type: choice
-        description: 'Environment to deploy to'
+        description: 'Environments to deploy to'
         options:
           - dev
           - staging
+          - sandbox
+          - prod
   workflow_run:
     workflows:
       - 'Build and push to ECR'
