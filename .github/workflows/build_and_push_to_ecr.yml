@@ -5,9 +5,6 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - "**/*.md"  # Ignore Documentation changes
-      - ".github/**"  # Ignore GitHub Actions changes
 
 concurrency:
   group: build-and-push-${{ github.ref }}
