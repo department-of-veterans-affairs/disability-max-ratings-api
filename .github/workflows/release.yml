@@ -8,9 +8,9 @@ on:
         description: 'Environments to deploy to'
         options:
           - dev
-          - staging
-          - sandbox
-          - prod
+          - dev staging
+          - dev staging sandbox
+          - dev staging sandbox prod
   workflow_run:
     workflows:
       - 'Build and push to ECR'

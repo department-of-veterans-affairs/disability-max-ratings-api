@@ -203,3 +203,18 @@ This repository uses Dependabot to keep dependencies up to date. Pull requests f
 - The update is a minor or patch version change (major version updates require manual review)
 
 Interested in contributing? Check out our [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
+## Deploying to VA Platform
+### Building the image and publishing to ECR
+Images are built and pushed to ECR using the [build_and_push_to_ecr.yml](.github/workflows/build_and_push_to_ecr.yml) workflow which is triggered in one of two ways:
+* Automatically: when pushed when changes are pushed to the `main` branch, which should only be done when a Pull Request is merged into the `main` branch
+* Manually: by triggering the action in [Github](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/build_and_push_to_ecr.yml)
+
+This workflow is not triggered when changes are pushed to any branch other than the `main` branch.
+
+### Deploying the image
+The image is released to the VA Platform using the [release.yml](.github/workflows/release.yml) workflow which is triggered when a new image is pushed to ECR.
+This workflow will deploy the latest image to the VA Platform automatically for the `dev` and `staging` environments.
+The `sandbox` and `prod` environments can be deployed manually by triggering the action in [Github](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/release.yml) and selecting the desired environment(s).
+
+Note that manually triggering the deployment will deploy the most recent commit hash to the selected environment(s).
