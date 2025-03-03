@@ -79,15 +79,15 @@ exclude = [
 [tool.poetry.dependencies]
 python = "3.12.3"
 poetry = "2.1.1"
-fastapi = "0.115.9"
+fastapi = "0.115.11"
 httpx = "0.28.1"
 uvicorn = {version = "0.34.0", extras = ["standard"]}
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.15.0"
 pre-commit = "4.1.0"
-ruff = "0.9.8"
-pytest = "8.3.4"
+ruff = "0.9.9"
+pytest = "8.3.5"
 pytest-cov = "6.0.0"
 bandit = {version = "1.8.3", extras = ["toml"]}
 
