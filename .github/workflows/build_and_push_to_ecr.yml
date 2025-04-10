@@ -34,6 +34,17 @@ jobs:
         with:
           mask-password: 'true'
 
+      - name: Check if image already exists in ECR
+        id: check-image
+        run: |
+          if aws ecr describe-images --repository-name ${{ secrets.ECR_REPOSITORY }} --image-ids imageTag=${{ github.sha }} >/dev/null 2>&1; then
+            echo "Image with tag ${{ github.sha }} already exists in ECR."
+            echo "::warning::Image already exists in ECR, stopping build workflow with error status to prevent release workflow from running."
+            exit 1
+          else
+            echo "Image does not exist in ECR, proceeding with build"
+          fi
+
       - name: Build Docker Image And Push to ECR
         uses: docker/build-push-action@v6
         with:
