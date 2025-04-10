@@ -5,6 +5,10 @@ on:
   push:
     branches:
       - main
+  schedule:
+    # Run every day at midnight UTC - this is a workaround to ensure the workflow is run at least once per day since
+    # VA GitHub enterprise settings prevent github actions from running as a result of dependabot PRs.
+    - cron: '0 0 * * *'
 
 concurrency:
   group: build-and-push-${{ github.ref }}
