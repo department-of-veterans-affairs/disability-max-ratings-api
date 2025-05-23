@@ -217,4 +217,4 @@ The image is released to the VA Platform using the [release.yml](.github/workflo
 This workflow will deploy the latest image to the VA Platform automatically for the `dev` and `staging` environments.
 The `sandbox` and `prod` environments can be deployed manually by triggering the action in [Github](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/workflows/release.yml) and selecting the desired environment(s).
 
-Note that manually triggering the deployment will deploy the most recent commit hash to the selected environment(s).
+Note that manually triggering the deployment will use the most recent commit hash by default. You can also specify a specific commit SHA from the main branch to deploy.
