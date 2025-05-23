@@ -49,7 +49,8 @@ jobs:
       - name: Validate SHA exists in main branch
         id: validate-sha
         run: |
-          if git branch --contains ${{ github.event.inputs.commit_sha }} | grep -q "main"; then
+          git fetch origin main
+          if git merge-base --is-ancestor ${{ github.event.inputs.commit_sha }} origin/main; then
             echo "SHA ${{ github.event.inputs.commit_sha }} exists in main branch"
             echo "validated_sha=${{ github.event.inputs.commit_sha }}" >> $GITHUB_OUTPUT
           else
@@ -110,15 +111,24 @@ jobs:
           fetch-depth: 1
           path: vsp-infra-application-manifests
 
+      - name: Set deployment SHA
+        id: set-sha
+        run: |
+          if [[ "${{ needs.validate-sha.outputs.validated_sha }}" != "" ]]; then
+            echo "Using provided SHA: ${{ needs.validate-sha.outputs.validated_sha }}"
+            echo "deployment_sha=${{ needs.validate-sha.outputs.validated_sha }}" >> $GITHUB_ENV
+          else
+            echo "Using latest SHA: ${{ github.sha }}"
+            echo "deployment_sha=${{ github.sha }}" >> $GITHUB_ENV
+          fi
+
       - name: Update image tag in infra repo
         run: |
           cd vsp-infra-application-manifests/apps/disability-max-ratings-api
           envs=( ${{ needs.prepare-environments.outputs.environments }} )
-          # Use provided and validated SHA if specified, otherwise use latest SHA
-          SHA="${{ needs.validate-sha.outputs.validated_sha != '' && needs.validate-sha.outputs.validated_sha || github.sha }}"
           for env in ${envs[*]};
           do
-            yq e -i '(.image.tag) |= "'"$SHA"'"' $env/values.yaml
+            yq e -i '(.image.tag) |= "'"${{ env.deployment_sha }}"'"' $env/values.yaml
           done
           git diff --unified=0
 
@@ -129,4 +139,4 @@ jobs:
           author_name: va-vsp-bot
           cwd: vsp-infra-application-manifests/apps/disability-max-ratings-api
           fetch: false
-          message: 'auto-updating disability-max-ratings-api to commit: ${{ needs.validate-sha.outputs.validated_sha != "" && needs.validate-sha.outputs.validated_sha || github.sha }} for env(s): ${{ needs.prepare-environments.outputs.environments }}'
+          message: 'auto-updating disability-max-ratings-api to commit: ${{ env.deployment_sha }} for env(s): ${{ needs.prepare-environments.outputs.environments }}'
