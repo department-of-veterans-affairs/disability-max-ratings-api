@@ -11,6 +11,10 @@ on:
           - dev staging
           - dev staging sandbox
           - dev staging sandbox prod
+      commit_sha:
+        type: string
+        description: 'Commit SHA to deploy (must be from main branch, defaults to latest SHA if not specified)'
+        required: false
   workflow_run:
     workflows:
       - 'Build and push to ECR'
@@ -31,8 +35,35 @@ permissions:
   contents: read  # This is required for actions/checkout
 
 jobs:
+  validate-sha:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.commit_sha != ''
+    outputs:
+      validated_sha: ${{ steps.validate-sha.outputs.validated_sha }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate SHA exists in main branch
+        id: validate-sha
+        run: |
+          git fetch origin main
+          if git merge-base --is-ancestor ${{ github.event.inputs.commit_sha }} origin/main; then
+            echo "SHA ${{ github.event.inputs.commit_sha }} exists in main branch"
+            echo "validated_sha=${{ github.event.inputs.commit_sha }}" >> $GITHUB_OUTPUT
+          else
+            echo "Error: SHA ${{ github.event.inputs.commit_sha }} does not exist in main branch"
+            exit 1
+          fi
+
   prepare-environments:
     runs-on: ubuntu-latest
+    needs: [validate-sha]
+    if: >
+      github.event.inputs.commit_sha == '' ||
+      (github.event.inputs.commit_sha != '' && needs.validate-sha.result == 'success')
     outputs:
       environments: ${{ steps.set-environments.outputs.environments }}
     steps:
@@ -58,6 +89,7 @@ jobs:
       (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     needs:
       - prepare-environments
+      - validate-sha
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -79,13 +111,24 @@ jobs:
           fetch-depth: 1
           path: vsp-infra-application-manifests
 
+      - name: Set deployment SHA
+        id: set-sha
+        run: |
+          if [[ "${{ needs.validate-sha.outputs.validated_sha }}" != "" ]]; then
+            echo "Using provided SHA: ${{ needs.validate-sha.outputs.validated_sha }}"
+            echo "deployment_sha=${{ needs.validate-sha.outputs.validated_sha }}" >> $GITHUB_ENV
+          else
+            echo "Using latest SHA: ${{ github.sha }}"
+            echo "deployment_sha=${{ github.sha }}" >> $GITHUB_ENV
+          fi
+
       - name: Update image tag in infra repo
         run: |
           cd vsp-infra-application-manifests/apps/disability-max-ratings-api
           envs=( ${{ needs.prepare-environments.outputs.environments }} )
           for env in ${envs[*]};
           do
-            yq e -i '(.image.tag) |= "${{ github.sha }}"' $env/values.yaml
+            yq e -i '(.image.tag) |= "'"${{ env.deployment_sha }}"'"' $env/values.yaml
           done
           git diff --unified=0
 
@@ -96,4 +139,4 @@ jobs:
           author_name: va-vsp-bot
           cwd: vsp-infra-application-manifests/apps/disability-max-ratings-api
           fetch: false
-          message: 'auto-updating disability-max-ratings-api to commit: ${{ github.sha }} for env(s): ${{ needs.prepare-environments.outputs.environments }}'
+          message: 'auto-updating disability-max-ratings-api to commit: ${{ env.deployment_sha }} for env(s): ${{ needs.prepare-environments.outputs.environments }}'
