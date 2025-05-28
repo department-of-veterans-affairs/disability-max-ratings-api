@@ -17,7 +17,7 @@ on:
         required: false
   workflow_run:
     workflows:
-      - 'Build and push to ECR'
+      - 'Build and Push to ECR'
     branches:
       - main
     types:
@@ -37,7 +37,7 @@ permissions:
 jobs:
   validate-sha:
     runs-on: ubuntu-latest
-    if: github.event.inputs.commit_sha != ''
+    if: ${{ github.event.inputs.commit_sha }}
     outputs:
       validated_sha: ${{ steps.validate-sha.outputs.validated_sha }}
     steps:
