@@ -46,24 +46,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Validate SHA exists in main branch
+      - name: Validate SHA exists on current branch
         id: validate-sha
         run: |
-          git fetch origin main
-          if git merge-base --is-ancestor ${{ github.event.inputs.commit_sha }} origin/main; then
-            echo "SHA ${{ github.event.inputs.commit_sha }} exists in main branch"
+          git fetch origin ${{ github.ref_name }}
+          if git merge-base --is-ancestor ${{ github.event.inputs.commit_sha }} origin/${{ github.ref_name }}; then
+            echo "SHA ${{ github.event.inputs.commit_sha }} exists on branch ${{ github.ref_name }}"
             echo "validated_sha=${{ github.event.inputs.commit_sha }}" >> $GITHUB_OUTPUT
           else
-            echo "Error: SHA ${{ github.event.inputs.commit_sha }} does not exist in main branch"
+            echo "Error: SHA ${{ github.event.inputs.commit_sha }} does not exist on branch ${{ github.ref_name }}"
             exit 1
           fi
 
   prepare-environments:
     runs-on: ubuntu-latest
     needs: [validate-sha]
-    if: >
-      github.event.inputs.commit_sha == '' ||
-      (github.event.inputs.commit_sha != '' && needs.validate-sha.result == 'success')
+    if: needs.validate-sha.result == 'success' || needs.validate-sha.result == 'skipped'
     outputs:
       environments: ${{ steps.set-environments.outputs.environments }}
     steps:
@@ -82,11 +80,12 @@ jobs:
         run: |
           echo "environments=${{ env.environments }}" >> $GITHUB_OUTPUT
 
-  update_image_tag:
+  update-image-tag:
     runs-on: ubuntu-latest
     if: >
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+      (github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')) &&
+      (needs.validate-sha.result == 'success' || needs.validate-sha.result == 'skipped')
     needs:
       - prepare-environments
       - validate-sha
