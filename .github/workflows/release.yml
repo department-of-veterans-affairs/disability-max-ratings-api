@@ -46,7 +46,7 @@ jobs:
           fetch-depth: 0
 
       - name: Validate SHA or use current workflow SHA
-        id: validate-sha
+        id: validate-sha-or-use-current-workflow-sha
         run: |
           echo "Provided SHA: ${{ github.event.inputs.commit_sha }}"
           if [[ -n "${{ github.event.inputs.commit_sha }}" ]]; then
