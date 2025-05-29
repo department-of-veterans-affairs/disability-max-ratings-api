@@ -85,6 +85,30 @@ jobs:
         run: |
           echo "environments=${{ env.environments }}" >> $GITHUB_OUTPUT
 
+  can-deploy-to-environment-check:
+    runs-on: ubuntu-latest
+    needs: [prepare-environments]
+    steps:
+      - name: Check deployment restrictions
+        run: |
+          environments="${{ needs.prepare-environments.outputs.environments }}"
+          current_branch="${{ github.ref_name }}"
+
+          echo "Current branch: $current_branch"
+          echo "Target environments: $environments"
+
+          if [[ "$environments" == *"sandbox"* ]] || [[ "$environments" == *"prod"* ]]; then
+            if [[ "$current_branch" != "main" ]]; then
+              echo "Error: Cannot deploy to sandbox or prod environments from branch '$current_branch'"
+              echo "Sandbox and prod deployments are only allowed from the main branch"
+              exit 1
+            else
+              echo "✅ Deploying to protected environments from main branch - allowed"
+            fi
+          else
+            echo "✅ Deploying to non-protected environments - no branch restriction"
+          fi
+
   update-image-tag:
     runs-on: ubuntu-latest
     if: >
@@ -93,6 +117,7 @@ jobs:
     needs:
       - prepare-environments
       - validate-sha
+      - can-deploy-to-environment-check
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
