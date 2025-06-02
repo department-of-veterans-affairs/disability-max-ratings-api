@@ -80,7 +80,7 @@ exclude = [
 python = "3.12.3"
 fastapi = "0.115.12"
 httpx = "0.28.1"
-uvicorn = {version = "0.34.2", extras = ["standard"]}
+uvicorn = {version = "0.34.3", extras = ["standard"]}
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.16.0"
