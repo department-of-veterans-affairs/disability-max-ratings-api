@@ -86,7 +86,7 @@ uvicorn = {version = "0.34.3", extras = ["standard"]}
 mypy = "1.16.0"
 pre-commit = "4.2.0"
 ruff = "0.11.12"
-pytest = "8.3.5"
+pytest = "8.4.0"
 pytest-cov = "6.1.1"
 bandit = {version = "1.8.3", extras = ["toml"]}
 
