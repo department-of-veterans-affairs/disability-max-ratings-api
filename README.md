@@ -198,9 +198,7 @@ NOTE: this repository was split from [abd-vro](https://github.com/department-of-
 
 ## Automated Dependency Updates
 
-This repository uses Dependabot to keep dependencies up to date. Pull requests from Dependabot are automatically merged if:
-- All checks pass
-- The update is a minor or patch version change (major version updates require manual review)
+This repository uses Dependabot to open PRs aimed at keeping dependencies up to date. Pre-commit files are kept up to date by PRs opened via the [Update Precommit](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/blob/bbe6c9ff396cf2c9f8b0463675fa9f66e59af63e/.github/workflows/update-pre-commit.yml) workflow. Both PRs must be manually approved by a member of the team in charge of this repository. 
 
 Interested in contributing? Check out our [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
