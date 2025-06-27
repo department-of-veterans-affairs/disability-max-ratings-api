@@ -1,5 +1,29 @@
 name: "Test, Lint & Coverage"
 
+# 📝 **Description**: Comprehensive code quality pipeline with testing, linting, type checking, and security scanning
+#
+# 🚀 **Triggers**:
+#    - Called by other workflows (workflow_call)
+#    - Manual workflow dispatch
+#
+# 🔧 **Steps**:
+#    - 📥 Checkout source code
+#    - 🐍 Install Poetry (v2.0.0) and Python (v3.12.3) with caching
+#    - 📦 Install project dependencies via Poetry
+#    - 🎨 Run ruff code formatting
+#    - 🔍 Run ruff linting checks
+#    - 🔎 Run mypy type checking
+#    - 🧪 Run pytest with coverage reporting
+#    - 📊 Upload coverage results to Code Climate
+#    - 🛡️ Run Bandit security scan (always executes even if other steps fail)
+#
+# 📤 **Outputs**:
+#    - Test results and coverage reports
+#    - Code quality validation results
+#
+# ⚠️ **External Impact**:
+#    - Sends coverage data to Code Climate service
+
 on:
   workflow_call: # Allows this workflow to be called from another workflow
   workflow_dispatch: # Allow manual triggering

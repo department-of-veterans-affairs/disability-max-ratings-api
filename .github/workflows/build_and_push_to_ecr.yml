@@ -1,5 +1,26 @@
 name: Build and Push to ECR
 
+# 📝 **Description**: Builds Docker image of the disability-max-ratings-api and pushes to Amazon ECR
+#
+# 🚀 **Triggers**:
+#    - Push to main branch
+#    - Daily at midnight UTC (workaround for VA GitHub enterprise dependabot limitations)
+#    - Manual workflow dispatch
+#
+# 🔧 **Steps**:
+#    - 📥 Checkout source code
+#    - 🔐 Configure AWS credentials using OIDC
+#    - 🔓 Login to Amazon ECR
+#    - ✅ Check if image already exists (prevents duplicate builds)
+#    - 🐳 Build and push Docker image with commit SHA and 'latest' tags
+#    - 📢 Notify on failure
+#
+# 📤 **Outputs**:
+#    - Docker image pushed to ECR with tags: commit SHA and 'latest'
+#
+# ⚠️ **External Impact**:
+#    - Modifies ECR repository by pushing new container images
+
 on:
   workflow_dispatch: # Allow manual triggering
   push:

@@ -1,5 +1,31 @@
 name: Release and Update Manifests
 
+# 📝 **Description**: Orchestrates deployment by updating image tags in infrastructure manifests across environments
+#
+# 🚀 **Triggers**:
+#    - Manual workflow dispatch with inputs:
+#      • environments: choice (dev | dev staging | dev staging sandbox | dev staging sandbox prod)
+#      • commit_sha: optional string (defaults to latest if not specified)
+#    - Automatic workflow_run trigger when 'Build and Push to ECR' workflow completes successfully on main branch
+#      • Auto-deploys to 'dev staging' environments only (defined by auto_deploy_envs)
+#
+# 🔧 **Steps**:
+#    - ✅ Validate commit SHA exists on main branch
+#    - 🎯 Prepare target environments (manual selection vs auto-deploy)
+#    - 🔒 Check deployment restrictions (sandbox/prod only from main branch)
+#    - 🔐 Configure AWS credentials using OIDC
+#    - 🔑 Retrieve bot token from AWS Parameter Store
+#    - 📥 Checkout vsp-infra-application-manifests repository
+#    - 📝 Update image tags in environment-specific values.yaml files
+#    - ✨ Commit changes back to infrastructure repository
+#
+# 📤 **Outputs**:
+#    - Updated deployment manifests in target environments
+#
+# ⚠️ **External Impact**:
+#    - Modifies vsp-infra-application-manifests repository
+#    - Triggers deployments across VA infrastructure environments
+
 on:
   workflow_dispatch:
     inputs:
