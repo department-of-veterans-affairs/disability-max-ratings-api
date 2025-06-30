@@ -1,4 +1,26 @@
 name: Pre-Commit Updates
+
+# 📝 **Description**: Automatically updates pre-commit hook versions while excluding Poetry
+#
+# 🚀 **Triggers**:
+#    - Scheduled daily at midnight UTC (cron: '0 0 * * *')
+#    - Manual workflow dispatch
+#
+# 🔧 **Steps**:
+#    - 📥 Checkout with write permissions (abd-vro-machine token)
+#    - 🐍 Install Python v3.12.3 with pip caching
+#    - 📦 Install pre-commit and yq tools
+#    - 🔍 Extract repository URLs from .pre-commit-config.yaml (excluding Poetry repo)
+#    - 🎯 Apply exclusion filter to avoid updating specified repositories
+#    - 🔄 Run pre-commit autoupdate on filtered repositories
+#    - 🔀 Create pull request with updated pre-commit hooks
+#
+# 📤 **Outputs**:
+#    - Updated .pre-commit-config.yaml with latest hook versions
+#
+# ⚠️ **External Impact**:
+#    - Creates automated pull requests for pre-commit updates
+
 on:
   schedule:
     - cron: '0 0 * * *'  # Daily at midnight
