@@ -192,13 +192,22 @@ If desired, the docs can be exported to `openapi.json` by running the following 
 poetry run python src/python_src/pull_api_documentation.py
 ```
 
+## Updating the Diagnostic Code Lookup Table
+
+The API uses a CSV-based lookup table to map diagnostic codes to their maximum ratings. To update this data:
+
+1. Prepare your new CSV file with the required columns (Diagnostic Code, Rated Issue Name, Max Rating, etc.)
+2. Use the updater script in the `scripts/` directory
+
+For detailed instructions on CSV format requirements and running the update script, see the [scripts/README.md](scripts/README.md).
+
 ## Repository History
 
 NOTE: this repository was split from [abd-vro](https://github.com/department-of-veterans-affairs/abd-vro/tree/develop/domain-ee/ee-max-cfi-app).
 
 ## Automated Dependency Updates
 
-This repository uses Dependabot to open PRs aimed at keeping dependencies up to date. Pre-commit files are kept up to date by PRs opened via the [Update Precommit](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/blob/bbe6c9ff396cf2c9f8b0463675fa9f66e59af63e/.github/workflows/update-pre-commit.yml) workflow. Both PRs must be manually approved by a member of the team in charge of this repository. 
+This repository uses Dependabot to open PRs aimed at keeping dependencies up to date. Pre-commit files are kept up to date by PRs opened via the [Update Precommit](https://github.com/department-of-veterans-affairs/disability-max-ratings-api/blob/main/.github/workflows/update-pre-commit.yml) workflow. Both PRs must be manually approved by a member of the team in charge of this repository.
 
 Interested in contributing? Check out our [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 

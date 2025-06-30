@@ -1,5 +1,22 @@
 name: "Continuous Integration"
 
+# 📝 **Description**: Orchestrates code quality checks and automated merging for pull requests
+#
+# 🚀 **Triggers**:
+#    - Pull requests to main branch
+#    - Push to main branch
+#    - Manual workflow dispatch
+#
+# 🔧 **Steps**:
+#    - 🧪 Run comprehensive tests, linting, and coverage checks
+#    - 🤖 Auto-merge dependabot PRs if tests pass successfully
+#
+# 📤 **Outputs**:
+#    - Test results and code quality validation
+#
+# ⚠️ **External Impact**:
+#    - May automatically merge dependabot pull requests
+
 on:
   pull_request:
     branches:
