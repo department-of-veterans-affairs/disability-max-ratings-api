@@ -30,7 +30,6 @@ on:
 
 permissions:
   contents: read
-  secrets: read
 
 jobs:
   perform-checks:
