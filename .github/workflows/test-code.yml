@@ -28,6 +28,10 @@ on:
   workflow_call: # Allows this workflow to be called from another workflow
   workflow_dispatch: # Allow manual triggering
 
+permissions:
+  contents: read
+  secrets: read
+
 jobs:
   perform-checks:
     runs-on: ubuntu-latest
