@@ -27,6 +27,9 @@ on:
       - main
   workflow_dispatch: # Allow manual triggering
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -46,3 +49,5 @@ jobs:
       needs.call-test-code.result == 'success'
     uses: ./.github/workflows/dependabot-auto-merge.yml
     secrets: inherit
+    permissions:
+      pull-requests: write
