@@ -50,4 +50,5 @@ jobs:
     uses: ./.github/workflows/dependabot-auto-merge.yml
     secrets: inherit
     permissions:
+      contents: write
       pull-requests: write
