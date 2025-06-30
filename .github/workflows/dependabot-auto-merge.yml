@@ -1,5 +1,22 @@
 name: "Dependabot Auto-Merge"
 
+# 📝 **Description**: Automatically merges dependabot pull requests for non-major version updates after all other checks pass
+#
+# 🚀 **Triggers**:
+#    - Called by other workflows (workflow_call)
+#    - Only runs for dependabot[bot] user PRs
+#
+# 🔧 **Steps**:
+#    - 📊 Fetch dependabot metadata to determine update type
+#    - ✅ Check if update is non-major (excludes semver-major updates)
+#    - 🤖 Enable auto-merge for qualifying dependabot PRs
+#
+# 📤 **Outputs**:
+#    - Auto-merge enabled on qualifying dependabot pull requests
+#
+# ⚠️ **External Impact**:
+#    - Automatically merges qualifying dependabot pull requests when all other checks pass
+
 on:
   workflow_call: # Allows this workflow to be called from another workflow
 
