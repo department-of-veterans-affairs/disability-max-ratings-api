@@ -27,7 +27,7 @@ repository = "https://github.com/department-of-veterans-affairs/disability-max-r
 [tool.poetry]
 # TODO: Remove name, version, description, and authors when dependabot uses poetry 2.x.x. See https://github.com/dependabot/dependabot-core/issues/11237
 name = "disability-max-ratings-api"
-version = "0.2.0"
+version = "1.0.0"
 description = "API to get the maximum rating for a collection of disabilities."
 authors = ["Department of Veterans Affairs"]
 package-mode = false
@@ -95,7 +95,7 @@ exclude_dirs = ["tests"]
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-tag_format = "1.0.0"
+tag_format = "v$version"
 version_scheme = "semver2"
 version_provider = "poetry"
 update_changelog_on_bump = true
@@ -106,5 +106,5 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.semantic_release]
 version_source = "tag"
-version_variable = "src/python_src/api.py:__version__"
+version_variable = "src/python_src/__init__.py:__version__"
 upload_to = "pypi"
