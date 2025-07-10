@@ -26,8 +26,10 @@ When prompted, select the cz_conventional_commits adapter. This creates or updat
 
 Instead of using git commit -m "...", use:
 
-`git add <files>`
-`cz commit`
+```bash
+git add <files>
+cz commit
+```
 
 Commitizen will prompt you for:
 	•	Type: (feat, fix, chore, docs, ci, etc.)
@@ -37,17 +39,18 @@ Commitizen will prompt you for:
 	•	Breaking Changes (optional)
 
 Example flow:
-
+```bash
 $ cz commit
 ? Select the type of change you are committing: feat
 ? Denote the scope of this change (optional): api
 ? Write a short, imperative description of the change: add user endpoint
 ? Provide a longer description of the change (press enter to skip):
 ? Are there any breaking changes? No
+```
 
 This will generate a commit like:
 
-feat(api): add user endpoint
+`feat(api): add user endpoint`
 
 4. Pushing to the Repository
 
@@ -56,20 +59,6 @@ Once your commit is created:
 `git push origin <your-branch>`
 
 Ensure that your branch’s history only contains conventional commits; this allows downstream tools (e.g., python-semantic-release) to automatically bump versions.
-
-5. Automating in CI (Optional)
-
-You can add a pre-commit hook or CI check to enforce commit message style:
-
-# .pre-commit-config.yaml
-repos:
-  - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.39.1  # or latest immutable tag
-    hooks:
-      - id: commitizen-commit
-      - id: commitizen-check
-
-This prevents invalid commits from being created or merged.
 
 ⸻
 
