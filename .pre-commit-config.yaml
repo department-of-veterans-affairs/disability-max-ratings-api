@@ -1,3 +1,5 @@
+default_install_hook_types: [commit-msg, pre-commit]
+
 repos:
   - repo: meta
     hooks:
@@ -59,8 +61,6 @@ repos:
         additional_dependencies: ["bandit[toml]"]
 
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: master  # Replace with latest tag
+    rev: v4.8.3
     hooks:
       - id: commitizen
-      - id: commitizen-branch
-        stages: [pre-push]

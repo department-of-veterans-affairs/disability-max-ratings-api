@@ -1,7 +1,7 @@
 # pyproject.toml
 [project]
 name = "disability-max-ratings-api"
-version = "0.1.0"
+version = "1.0.0"
 description = "API to get the maximum rating for a collection of disabilities."
 dynamic = ["dependencies"]
 authors = [
@@ -25,12 +25,16 @@ homepage = "https://github.com/department-of-veterans-affairs/disability-max-rat
 repository = "https://github.com/department-of-veterans-affairs/disability-max-ratings-api"
 
 [tool.poetry]
-# TODO: Remove name, version, description, and authors when dependabot uses poetry 2.x.x. See https://github.com/dependabot/dependabot-core/issues/11237
-name = "disability-max-ratings-api"
-version = "1.0.0"
-description = "API to get the maximum rating for a collection of disabilities."
-authors = ["Department of Veterans Affairs"]
 package-mode = false
+requires-poetry = "==2.0"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "semver2"
+version_provider = "pep621"
+update_changelog_on_bump = true
+version_files = ["src/python_src/__init__.py", "pyproject.toml"]
 
 [tool.pytest.ini_options]
 addopts = "-ra --cov=./src --cov-fail-under=90 --no-cov-on-fail --cov-report=term:skip-covered --cov-report=html:build/reports/coverage --cov-branch"
@@ -93,14 +97,6 @@ commitizen = "^4.8.3"
 
 [tool.bandit]
 exclude_dirs = ["tests"]
-
-[tool.commitizen]
-name = "cz_conventional_commits"
-tag_format = "$version"
-version_scheme = "semver2"
-version_provider = "poetry"
-update_changelog_on_bump = true
-major_version_zero = true
 
 [build-system]
 requires = ["poetry-core"]
