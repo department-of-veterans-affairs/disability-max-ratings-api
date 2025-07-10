@@ -80,6 +80,7 @@ If the [`pre-commit`](https://pre-commit.com/) hooks are installed, they will au
 
 ### Git Commit Messages
 
+- Must use [Commit Guide](docs/commitizen.md) to push commits to this repository.
 - Use the imperative mood (e.g., "Add feature X" instead of "Added feature X")
 - Keep the first line under 50 characters
 - Provide additional details in subsequent lines, if necessary
