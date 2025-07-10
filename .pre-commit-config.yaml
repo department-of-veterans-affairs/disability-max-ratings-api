@@ -57,3 +57,10 @@ repos:
       - id: bandit
         args: [-c, pyproject.toml, -r, -l]
         additional_dependencies: ["bandit[toml]"]
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: master  # Replace with latest tag
+    hooks:
+      - id: commitizen
+      - id: commitizen-branch
+        stages: [pre-push]
