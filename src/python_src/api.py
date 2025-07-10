@@ -12,11 +12,13 @@ from util.sanitizer import sanitize
 
 from src.python_src.pydantic_models import HealthCheckResponse
 
+from . import __version__
+
 app = FastAPI(
     title='Disability Max Ratings API',
     description='Maps a list of disabilities to their max rating.',
     contact={},
-    version='v0.1',
+    version=__version__,
     license={
         'name': 'CCO 1.0',
         'url': 'https://github.com/department-of-veterans-affairs/disability-max-ratings-api/blob/main/LICENSE.md',
