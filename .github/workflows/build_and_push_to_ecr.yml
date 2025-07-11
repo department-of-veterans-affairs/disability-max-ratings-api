@@ -40,6 +40,35 @@ permissions:
   contents: read  # This is required for actions/checkout
 
 jobs:
+
+  cz-bump:
+    name: Bump version with Commitizen
+    #needs: build-and-push-to-ecr
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Commitizen
+        run: pip install commitizen
+
+      - name: Bump version
+        run: | # This step will bump the version based on the commit messages
+          cz bump --yes
+
+      - name: Push bump commit & tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: git push origin HEAD --follow-tags
+
   build-and-push-to-ecr:
     runs-on: ubuntu-latest
 
