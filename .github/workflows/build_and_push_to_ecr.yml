@@ -43,7 +43,6 @@ jobs:
 
   cz-bump:
     name: Bump version with Commitizen
-    #needs: build-and-push-to-ecr
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -67,14 +66,21 @@ jobs:
           git config user.email "${{ secrets.ABD_VRO_MACHINE_EMAIL }}"
           cz bump --yes
 
+      - name: Sleep for CodeQL to finish
+        run: |
+          echo "Sleeping for 120 seconds to allow CodeQL to finish"
+          echo "Current insights on average run time can be found here: https://github.com/department-of-veterans-affairs/disability-max-ratings-api/actions/metrics/performance?filters=workflow_file_name%3Acodeql"
+          sleep 120
+
       - name: Push bump commit & tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: git push origin HEAD --follow-tags
 
   build-and-push-to-ecr:
+    needs: cz-bump
     runs-on: ubuntu-latest
-
+    if: needs.cz-bump.result == 'success'
     steps:
       - name: "Checkout source code"
         uses: actions/checkout@v4
