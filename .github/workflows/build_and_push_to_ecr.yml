@@ -50,7 +50,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: true
+          # token with read/write repo access for abd-vro-machine
+          token: ${{ secrets.ABD_VRO_MACHINE_READ_WRITE_REPO }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -62,6 +63,8 @@ jobs:
 
       - name: Bump version
         run: | # This step will bump the version based on the commit messages
+          git config user.name "abd-vro-machine"
+          git config user.email "${{ secrets.ABD_VRO_MACHINE_EMAIL }}"
           cz bump --yes
 
       - name: Push bump commit & tag
